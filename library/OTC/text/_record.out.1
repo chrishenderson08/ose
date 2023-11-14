@@ -1,0 +1,33 @@
+@enter - void test1()
+ @enter - void test2()
+  record.field(0) = [.one..two.three.]
+  record.field(1) = []
+  record.field(2) = [one]
+  record.field(3) = []
+  record.field(4) = [two]
+  record.field(5) = [three]
+  record.field(6) = []
+  record.fields() = [] [one] [] [two] [three] []
+ @exit - void test2()
+ @enter - void test3()
+  record.field(0) = [ one		two three	]
+  record.field(1) = [one]
+  record.field(2) = [two]
+  record.field(3) = [three]
+  record.fields() = [one] [two] [three]
+ @exit - void test3()
+ @enter - void test4()
+  record.field(0) = [ one	 two three	]
+  record.field(1) = [one]
+  record.field(2) = [two]
+  record.field(3) = [three]
+  record.fields() = [one] [two] [three]
+ @exit - void test4()
+ @enter - void test5()
+  record.field(0) = [.one..two.three.]
+  record.field(1) = [one]
+  record.field(2) = [two]
+  record.field(3) = [three]
+  record.fields() = [one] [two] [three]
+ @exit - void test5()
+@exit - void test1()

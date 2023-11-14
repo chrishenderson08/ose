@@ -1,0 +1,435 @@
+Makeit Porting Guide
+====================
+
+This file contains information about the compiler configurations files and
+their contents. You will need to consult this file if you need to create a
+new type of compiler configuration, or simply wish to know more about what
+the files contain.
+
+If you have any questions, you should direct them at the "Help" web forum 
+on the OSE web site at [http://ose.sourceforge.net]. Make it clear in your
+posts which version of this package you are using. You can find out exactly
+which version of this package you are using by looking in the PACKAGE file
+located in the same directory that this file resides.
+
+Configuration Files
+-------------------
+
+For each compiler configuration there can be a "compiler" settings file,
+"platform" settings file and "targets" file. The "compiler" settings file
+will always exist for a particular configuration, the other two files are
+optional and will only need to be created in certain circumstances.
+
+The names of the "compiler", "platform" and "targets" files for a specific
+compiler configuration always contain both the name of the host platform
+and the name of the compiler configuration in them. For example:
+
+  config/sparc-sun-solaris-compiler-sun5.4.mk
+  config/sparc-sun-solaris-platform-sun5.4.mk
+  config/sparc-sun-solaris-targets-sun5.4.mk
+
+Where there is more than one compiler configuration defined for a
+particular platform, a special "defaults" configuration file can be created
+which defines which is the default configuration. The name of the
+"defaults" configuration file only has the name of the host platform in it.
+For example:
+
+  config/sparc-sun-solaris-defaults.mk
+
+The Compiler Settings File
+--------------------------
+
+The "compiler" settings file is that which defines where the C and C++
+compiler corresponding to that configuration are installed and what command
+line options should be supplied to the compiler. This file may also
+optionally define overrides indicating how static and shared libraries
+should be built when using that compiler. In extreme cases, the file may
+also override special internal variables of makeit which govern how actual
+files are compiled.
+
+The first group of variables which can be defined within the "compiler"
+file define the location of the compilers and associated tools.
+
+  CC = /usr/bin/gcc
+  CXX = /usr/bin/g++
+  LD = /usr/bin/ld
+
+  AR = /usr/bin/ar
+  RANLIB = /usr/bin/ranlib
+
+The full pathname to each program should be given so that which tool is
+used is not dependent on what a user of makeit may have his application
+search path set to.
+
+If a particular host platform does not provide "ranlib", do not set the
+"RANLIB" variable. If the host platform provides "ranlib", but it is not
+actually required, assign "RANLIB" the dummy value "ranlib", but insert the
+character ":" followed by a space, at the start of the value.
+
+  RANLIB = : ranlib
+
+The ":" character is special and is interpreted as a comment character
+by a shell script. Thus, although what is shown may give the appearance
+that "ranlib" is being run, nothing will actually be executed.
+
+The next group of variables are used to indicate for which distinct
+compilation variants compiler command line options are defined, and
+for which of those compilation variants it is possible for the compiler to
+produce object files incorporating position independent code (PIC). The
+latter dictates whether a shared library or dynamically loadable module can
+be created.
+
+  COMPILER_VARIANTS = dbg opt std prf
+  COMPILER_PIC_VARIANTS = opt std
+
+If a compiler always produces object files which are PIC by default, this
+section should also include:
+
+  COMPILER_ATTRIBUTES += objects_pic_by_default
+
+Although a compiler may always be able to produce object files which are
+PIC by default, it is recommended that the "dbg" and "prf" variants not be
+listed as being PIC capable. This is because many host platforms do not
+support shared libraries incorporating profiled code (prf). Also, debuggers
+on some host platforms do not allow you to debug into shared libraries
+incorporating support for debuggers (dbg).
+
+The next group of variables define command line options passed to the
+compiler no matter which compilation variant is being used. Some special
+case variables are included in this section where for example it is
+necessary to supply to the compiler certain flags only when certain types
+of code files are being compiled, or when generating certain types of
+output files.
+
+The basic set of variables which can be specified in this section and which
+apply no matter what type of file is being compiled are:
+
+  COMPILER_CPPFLAGS +=
+  COMPILER_CFLAGS +=
+  COMPILER_CXXFLAGS +=
+
+  COMPILER_LDFLAGS +=
+  COMPILER_LDLIBS +=
+
+These correspond to preprocessor flags, C compiler flags, C++ compiler
+flags, flags to be used when linking programs and libraries to be linked.
+
+To encourage programmers to fix up poorly written code, it is recommended
+that full compiler warnings be turned on by default. The recommended means
+of turning this off is to check for whether the "disable_warnings" string
+is listed in the "COMPILER_OPTIONS" variable.
+
+  ifeq "$(filter disable_warnings,$(COMPILER_OPTIONS))" ""
+  COMPILER_CFLAGS += -Wall
+  COMPILER_CXXFLAGS += -Wall
+  endif
+
+If special compiler flags need to be supplied to the compiler only when a
+program source code file is being compiled, the following variables should
+be used.
+
+  COMPILER_EXE_CPPFLAGS +=
+  COMPILER_EXE_CFLAGS +=
+  COMPILER_EXE_CXXFLAGS +=
+
+These are sometimes required to be used where a C++ compiler needs special
+compiler flags related to C++ template expansion to only be supplied when
+compiling the program code file. For example, the following is required
+with some versions of Sun C++ to workaround a problem whereby it doesn't
+expand all template member functions of a template class correctly.
+
+  COMPILER_EXE_CXXFLAGS += -template=wholeclass
+
+The other main situation where special compiler flags are required only at
+certain times is when library source code files are being compiled into
+object incorporating position independent code.
+
+  COMPILER_PIC_CPPFLAGS +=
+  COMPILER_PIC_CFLAGS +=
+  COMPILER_PIC_CXXFLAGS +=
+
+One such example is when using GNU C++ on a platform where objects are not
+PIC by default.
+
+  COMPILER_PIC_CPPFLAGS +=
+  COMPILER_PIC_CFLAGS += -fPIC
+  COMPILER_PIC_CXXFLAGS += -fPIC
+
+Special PIC versions of "LDFLAGS" and "LDLIBS" also exist. These only get
+used when a shared library or dynamically loadable module is being created.
+
+  COMPILER_PIC_LDFLAGS +=
+  COMPILER_PIC_LDLIBS += 
+
+Use of these two variables is quite rare. If it is necessary to always
+supply particular compiler flags or link in special libraries when creating
+a shared library, it is generally better to override the variable which
+defines how the shared library is being created and list them there.
+
+Other versions of the "CPPFLAGS", "CFLAGS" and "CXXFLAGS" variables also
+exist for special cases of compiling library source code files (LIB) and
+non library source code files (OBJ). So far these have only been required
+in defining a configuration for Microsoft Visual C++. It isn't anticpated
+they would normally be required.
+
+The final group of variables relating to command line options to be supplied
+to the compiler, mirror the above variables, but relate to the distinct
+compilation variants. These are generally the same for all compilers.
+
+  COMPILER_CPPFLAGS_dbg +=
+  COMPILER_CFLAGS_dbg += -g
+  COMPILER_CXXFLAGS_dbg += -g
+  COMPILER_LDFLAGS_dbg +=
+  COMPILER_LDLIBS_dbg +=
+
+  COMPILER_CPPFLAGS_opt += -DNDEBUG
+  COMPILER_CFLAGS_opt += -O
+  COMPILER_CXXFLAGS_opt += -O
+  COMPILER_LDFLAGS_opt +=
+  COMPILER_LDLIBS_opt +=
+
+  COMPILER_CPPFLAGS_prf +=
+  COMPILER_CFLAGS_prf += -pg
+  COMPILER_CXXFLAGS_prf += -pg
+  COMPILER_LDFLAGS_prf +=
+  COMPILER_LDLIBS_prf += 
+
+  COMPILER_CPPFLAGS_std +=
+  COMPILER_CFLAGS_std +=
+  COMPILER_CXXFLAGS_std +=
+  COMPILER_LDFLAGS_std +=
+  COMPILER_LDLIBS_std +=
+
+The symbol "NDEBUG" is defined for the "opt" variant to turn off inclusion
+of any assertion checking in code when compiled. It is recommended this
+always be supplied for the "opt" variant, since the "opt" variant is
+generally what would be used when releasing code to production.
+
+Except for extreme cases, the variant specific versions of the "EXE",
+"PIC", "LIB" and "OBJ" versions of these variables wouldn't be required.
+
+The remainder of the "compiler" file can get a bit complicated dependent on
+the compiler and host platform being used. This is because rather than just
+specifying additional options to be supplied, you are overriding the actual
+command to run when performing a task.
+
+Typically, the only one of the defaults which you will need to override
+is that defining how a shared library or dynamically loadable module is
+produced. Although, there is a range of command definitions that can be
+overridden, only the commonly used ones are described.
+
+The first command definition which can be overridden is that which defines
+how a static library is created. When using certain C++ compilers this may
+have to be overridden so that the compiler itself is used to create the
+static library. This is necessary to ensure that any object files
+containing expansions of C++ template code required by the library, are
+included in the library.
+
+For example, when using Sun C++ compilers, the following is required.
+
+  define COMPILER_LIB_ARCHIVE
+  $(CXX) -xar -o @TARGET@ @ALLOBJECTS@
+  endef
+
+Note that the command definitions use special embedded tokens to denote
+inputs to and output from the commands, along with other information. These
+are the values which appear between the "@" characters. The whole token,
+including the "@" characters will be substituted by makeit at the point the
+command is executed.
+
+For this command definition, the tokens which can be referenced are:
+
+  TARGET	The full pathname of the library being created/updated.
+  OBJECTS	The names of only those objects which have been changed.
+  ALLOBJECTS	The names of all the objects which appear in the library.
+
+The main command definition which will typically need to be overridden is
+that for creating a shared library. If you don't provide one, you will not
+be able to create shared libraries as the default doesn't do anything.
+
+For example, when using Sun C++ compilers, the following is required:
+
+  define COMPILER_PIC_LIBRARY
+  $(CXX) -G -o @TARGET@ @PIC_LDFLAGS@ @LDFLAGS@ @OBJECTS@ \
+   @PIC_LDLIBS@ @LDLIBS@
+  endef
+
+For this command definition, the tokens which can be referenced are:
+
+  TARGET	The full pathname of the library being created.
+  DESTDIR	The name of the directory where the library is to be installed.
+  FILE		The filename component of the library being created.
+  NAME		The name of the library as defined by the user.
+  VERSION	The version number of the library as defined by the user.
+  PIC_LDFLAGS	Replaced with combination of various PIC_LDFLAGS variables.
+  LDFLAGS	Replaced with combination of various LDFLAGS variables.
+  PIC_LDLIBS	Replaced with combination of various PIC_LDLIBS variables.
+  LDLIBS	Replaced with combination of various LDLIBS variables.
+  OBJECTS	The names of all the objects which appear in the library.
+
+On many platforms, the same command as is used to create a shared library
+can be used to create a dynamically loadable module. If however for a
+particular compiler the manner in which a dynamically loadable module needs
+to be created is different, a command definition for this will also need to
+be defined. If it isn't defined, that for creating a shared library will be
+used instead.
+
+For example, when using certain Sun C++ compilers it is necessary to
+explicitly reference the C++ run time libraries when creating a dynamically
+loadable module. If this isn't done, any symbols defined in the runtime
+libraries will be undefined when the module is loaded by the application.
+
+  define COMPILER_PIC_MODULE
+  $(CXX) -G -o @TARGET@ @PIC_LDFLAGS@ @LDFLAGS@ @OBJECTS@ \
+   @PIC_LDLIBS@ @LDLIBS@ -lCstd -lCrun
+  endef
+
+The tokens which can be referenced when creating a dynamically loadable
+module are similar to those used when creating a shared library.
+
+  TARGET	The full pathname of the library being created.
+  DESTDIR	The name of the directory where the library is to be installed.
+  FILE		The filename component of the library being created.
+  NAME		The name of the loadable module as defined by the user.
+  PIC_LDFLAGS	Replaced with combination of various PIC_LDFLAGS variables.
+  LDFLAGS	Replaced with combination of various LDFLAGS variables.
+  PIC_LDLIBS	Replaced with combination of various PIC_LDLIBS variables.
+  LDLIBS	Replaced with combination of various LDLIBS variables.
+  OBJECTS	The names of all the objects which appear in the library.
+
+In some circumstances, further definitions may need to be included in the
+"compiler" settings file, but at this point it is generally to accomodate a
+compiler which doesn't behave like the majority of UNIX compilers. An
+extreme example of this is the "compiler" file for Microsoft Visual C++. In
+this case it is necessary to override internal implementation variables of
+makeit to obtain the desired effect. At this point it is recommended you
+obtain help rather than attempting it yourself.
+
+The Platform Settings Files
+---------------------------
+
+To make it easier to write portable makefiles, it is recommended that
+more common system libraries be optionally linked in dependent on what
+is listed in the "PLATFORM_OPTIONS" variable. If this is provided, it
+should appear in the "platform" settings files.
+
+  ifneq "$(filter socket,$(PLATFORM_OPTIONS))" ""
+  COMPILER_LDLIBS += -lsocket -lnsl
+  endif
+  ifneq "$(filter math,$(PLATFORM_OPTIONS))" ""
+  COMPILER_LDLIBS += -lm
+  endif 
+  ifneq "$(filter pthread,$(PLATFORM_OPTIONS))" ""
+  COMPILER_LDLIBS += -lpthread
+  endif
+
+At present, it is recommended this be done for socket libraries, math
+libraries and POSIX thread libraries. Some platform may require special
+preprocessor flags to also be specified when using multithreading.
+
+  ifneq "$(filter pthread,$(PLATFORM_OPTIONS))" ""
+  COMPILER_CPPFLAGS += -D_REENTRANT
+  endif
+
+These are not placed in the "compiler" settings files as typically it will
+be a module that will set the "PLATFORM_OPTIONS" variable. The modules
+however aren't included till well after the "compiler" settings file has
+been included.
+
+The only variables that would typically need to be set in the "platform"
+settings file are those for "CPPFLAGS", "LDFLAGS" and "LDLIBS".
+
+The Targets File
+----------------
+
+The "targets" file is where builtin targets of makeit can be extended as
+necessary to perform additional actions to support the use of a specific
+C and C++ compiler, or to clean up afterwards.
+
+As an example, the Sun C++ compiler creates a special directory for use
+as a repository for object files holding expansions of C++ templates. This
+directory is located within the makeit output subdirectory and is removed
+okay when the "clean" target is used.
+
+When the "mostlyclean" target is used as a means of removing intermediate
+outputs of a build, the template repository would not however be removed.
+This can be remedied by the following being included in the "targets" file
+for that compiler.
+
+  mostlyclean.always ::
+	  rm -rf $(MK)/SunWS_cache
+	  rm -rf $(MK).pic/SunWS_cache
+
+The Defaults Configuration File
+-------------------------------
+
+The "defaults" configuration file is used where there is more than one
+compiler configuration for a particular platform. If a "defaults" file is
+not supplied when there is more than one compiler configuration, makeit
+will default to using that configuration whose name appears first in the
+list of sorted configuration names. The "defaults" file therefore allows the
+choice made by makeit to be overridden.
+
+When defined, it would contain:
+
+  ifeq "$(origin MAKEIT_CONFIGURATION)" "undefined"
+  MAKEIT_CONFIGURATION = xxx
+  endif
+
+The value "xxx" should be replaced with the actual name of the compiler
+configuration which should be the default.
+
+A user of makeit can still override the default in their own makefile
+by specifying a value for "MAKEIT_CONFIGURATION".
+
+  MAKEIT_CONFIGURATION = gcc3.1
+
+Cross Compilers
+---------------
+
+If you are wanting to use a cross compiler, you still need to create a
+compiler configuration file much as for any other compiler. You need
+however to use a naming convention for the configuration name which
+reflects it is a cross compiler and also to give an indication of what the
+target platform is. For example, if using version 3.1 of the GNU C/C++
+compilers on Solaris, but a version of the compilers which targets the
+Cygwin platform, you would use a configuration name of:
+
+  xc-i686-pc-cygwin-gcc3.1
+
+The full name of the corresponding configuration file would thus be:
+
+  config/sparc-sun-solaris-compiler-xc-i686-pc-cygwin-gcc3.1.mk
+
+To further indicate that a cross compiler is being used, you should also
+indicate in the "compiler" file the name used to identify the target
+platform. The "COMPILER_PLATFORM" variable has been reserved for this
+purpose.
+
+  COMPILER_PLATFORM = i686-pc-cygwin
+
+If you don't know what name to use to identify the target platform, copy
+the file "scripts/config.guess" to the target platform and run it. The
+output of the program will be the name you should use. If it isn't possible
+for the script to be run on the target platform you will need to make up an
+appropriate name.
+
+Provided this convention is followed, the name of the output subdirectory
+used by makeit will not include the host platform name, but only the
+compiler configuration name. Because of the naming convention though, this
+effectively means the output subdirectory name will contain the target
+platform name instead. The name of the output subdirectory will also
+however have a prefix of "xc-". This is retained to clearly denote that the
+output was the result of using a cross compiler.
+
+As an example, the use of Microsoft Visual C++ is implemented as a cross
+compiler configuration where the host platform is the Cygwin platform.
+
+  samples/i686-pc-cygwin/i686-pc-cygwin-compiler-xc-i386-pc-win32-vc7.0.mk
+  samples/i686-pc-cygwin/i686-pc-cygwin-targets-xc-i386-pc-win32-vc7.0.mk
+
+When moved to the "config" subdirectory, the compiler configuration files
+would be named:
+
+  config/i686-pc-cygwin-compiler-xc-i386-pc-win32-vc7.0.mk
+  config/i686-pc-cygwin-targets-xc-i386-pc-win32-vc7.0.mk

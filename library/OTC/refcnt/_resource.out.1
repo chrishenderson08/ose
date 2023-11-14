@@ -1,0 +1,36 @@
+@enter - void test1()
+ @enter - void test2()
+  @enter - TST_Item1::TST_Item1()
+   this->value() = 1
+  @exit - TST_Item1::TST_Item1()
+  item.numRefs() = 0
+  @enter - TST_Item1::~TST_Item1()
+   this->value() = 1
+  @exit - TST_Item1::~TST_Item1()
+ @exit - void test2()
+ @enter - void test3()
+  @enter - TST_Item1::TST_Item1()
+   this->value() = 1
+  @exit - TST_Item1::TST_Item1()
+  item->numRefs() = 0
+  @enter - TST_Item1::~TST_Item1()
+   this->value() = 1
+  @exit - TST_Item1::~TST_Item1()
+ @exit - void test3()
+ @enter - void test4()
+  @enter - TST_Item1::TST_Item1()
+   this->value() = 1
+  @exit - TST_Item1::TST_Item1()
+  item->numRefs() = 0
+  item->reference()
+  item->numRefs() = 1
+  item->reference()
+  item->numRefs() = 2
+  item->unReference()
+  item->numRefs() = 1
+  item->unReference()
+  @enter - TST_Item1::~TST_Item1()
+   this->value() = 1
+  @exit - TST_Item1::~TST_Item1()
+ @exit - void test4()
+@exit - void test1()

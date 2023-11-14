@@ -1,0 +1,37 @@
+@enter - void test2()
+ @enter - void TST_Logger::log()
+  channel = <void>
+  level = EMERGENCY
+  message = EMERGENCY level
+ @exit - void TST_Logger::log()
+ @enter - void TST_Logger::log()
+  channel = <void>
+  level = ALERT
+  message = ALERT level
+ @exit - void TST_Logger::log()
+ @enter - void TST_Logger::log()
+  channel = <void>
+  level = CRITICAL
+  message = CRITICAL level
+ @exit - void TST_Logger::log()
+ @enter - void TST_Logger::log()
+  channel = <void>
+  level = ERROR
+  message = ERROR level
+ @exit - void TST_Logger::log()
+ @enter - void TST_Logger::log()
+  channel = <void>
+  level = WARNING
+  message = WARNING level
+ @exit - void TST_Logger::log()
+ @enter - void TST_Logger::log()
+  channel = <void>
+  level = NOTICE
+  message = NOTICE level
+ @exit - void TST_Logger::log()
+ @enter - void TST_Logger::log()
+  channel = <void>
+  level = INFO
+  message = INFO level
+ @exit - void TST_Logger::log()
+@exit - void test2()

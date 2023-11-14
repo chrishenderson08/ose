@@ -1,0 +1,239 @@
+@enter - void test1()
+ @enter - void test2()
+  list.population() = 0
+  list.isEmpty() = 1
+  list.removeAll()
+  list.population() = 0
+  list.isEmpty() = 1
+  iter.isValid() = 0
+ @exit - void test2()
+ @enter - void test3()
+  list.addFirst(item1)
+  list.addLast(item2)
+  list.population() = 2
+  list.isEmpty() = 0
+  list.removeAll()
+  list.population() = 0
+  list.isEmpty() = 1
+  list.addFirst(item1)
+  list.addLast(item2)
+  list.population() = 2
+  list.isEmpty() = 0
+  list.first().value() = 1
+  list.last().value() = 2
+  list.items() = 1 2
+ @exit - void test3()
+ @enter - void test4()
+  list1.addFirst(item1)
+  list1.addLast(item2)
+  list1.population() = 2
+  list1.isEmpty() = 0
+  list1.items() = 1 2
+  list1 = list1
+  list1.population() = 2
+  list1.isEmpty() = 0
+  list1.items() = 1 2
+  list2(list1)
+  list1.population() = 2
+  list1.isEmpty() = 0
+  list1.items() = 1 2
+  list2.population() = 2
+  list2.isEmpty() = 0
+  list2.items() = 1 2
+  list1.removeAll()
+  list1.population() = 0
+  list1.isEmpty() = 1
+  list1.items() =
+  list2.population() = 2
+  list2.isEmpty() = 0
+  list2.items() = 1 2
+  list1 = list2
+  list1.population() = 2
+  list1.isEmpty() = 0
+  list1.items() = 1 2
+  list2.population() = 2
+  list2.isEmpty() = 0
+  list2.items() = 1 2
+ @exit - void test4()
+ @enter - void test5()
+  list.addLast(item1)
+  list.addLast(item2)
+  list.addLast(item3)
+  list.population() = 3
+  list.isEmpty() = 0
+  list.first().value() = 1
+  list.last().value() = 3
+  list.removeFirst()
+  list.population() = 2
+  list.isEmpty() = 0
+  list.first().value() = 2
+  list.last().value() = 3
+  list.removeLast()
+  list.population() = 1
+  list.isEmpty() = 0
+  list.first().value() = 2
+  list.last().value() = 2
+ @exit - void test5()
+ @enter - void test6()
+  list.addLast(item1)
+  list.addLast(item2)
+  list.addLast(item3)
+  list.items(OTCLIB_FORWARD) = 1 2 3
+  list.items(OTCLIB_BACKWARD) = 3 2 1
+ @exit - void test6()
+ @enter - void test7()
+  list.addLast(item1)
+  list.addLast(item2)
+  list.addLast(item3)
+  list.items() = 1 2 3
+  items.invert()
+  list.items() = -1 -2 -3
+ @exit - void test7()
+ @enter - void test8()
+  list.addLast(item1)
+  list.addLast(item2)
+  list.addLast(item3)
+  list.removeAll()
+  @enter - TST_Item2::~TST_Item2()
+   this->value() = 1
+  @exit - TST_Item2::~TST_Item2()
+  @enter - TST_Item2::~TST_Item2()
+   this->value() = 2
+  @exit - TST_Item2::~TST_Item2()
+  @enter - TST_Item2::~TST_Item2()
+   this->value() = 3
+  @exit - TST_Item2::~TST_Item2()
+  list.addLast(item4)
+  list.addLast(item5)
+  list.addLast(item6)
+  list.dtor()
+  @enter - TST_Item2::~TST_Item2()
+   this->value() = 4
+  @exit - TST_Item2::~TST_Item2()
+  @enter - TST_Item2::~TST_Item2()
+   this->value() = 5
+  @exit - TST_Item2::~TST_Item2()
+  @enter - TST_Item2::~TST_Item2()
+   this->value() = 6
+  @exit - TST_Item2::~TST_Item2()
+ @exit - void test8()
+ @enter - void test9()
+  list1.addLast(item1)
+  list1.addLast(item2)
+  list1.addLast(item3)
+  list2.addLast(item2)
+  list1.removeAll()
+  @enter - TST_Item2::~TST_Item2()
+   this->value() = 1
+  @exit - TST_Item2::~TST_Item2()
+  @enter - TST_Item2::~TST_Item2()
+   this->value() = 3
+  @exit - TST_Item2::~TST_Item2()
+  list2.removeAll()
+  @enter - TST_Item2::~TST_Item2()
+   this->value() = 2
+  @exit - TST_Item2::~TST_Item2()
+ @exit - void test9()
+ @enter - void test10()
+  list.addLast(item1)
+  list.addLast(item2)
+  list.addLast(item3)
+  list.removeFirst()
+  @enter - TST_Item2::~TST_Item2()
+   this->value() = 1
+  @exit - TST_Item2::~TST_Item2()
+  list.removeFirst()
+  @enter - TST_Item2::~TST_Item2()
+   this->value() = 2
+  @exit - TST_Item2::~TST_Item2()
+  list.removeFirst()
+  @enter - TST_Item2::~TST_Item2()
+   this->value() = 3
+  @exit - TST_Item2::~TST_Item2()
+ @exit - void test10()
+ @enter - void test11()
+  list.addLast(item1)
+  list.addLast(item2)
+  list.addLast(item3)
+  list.removeFirst()
+  iter.item()->value() = 1
+  iter.next()
+  @enter - TST_Item2::~TST_Item2()
+   this->value() = 1
+  @exit - TST_Item2::~TST_Item2()
+  list.removeFirst()
+  iter.item()->value() = 2
+  iter.next()
+  @enter - TST_Item2::~TST_Item2()
+   this->value() = 2
+  @exit - TST_Item2::~TST_Item2()
+  list.removeFirst()
+  iter.item()->value() = 3
+  iter.next()
+  @enter - TST_Item2::~TST_Item2()
+   this->value() = 3
+  @exit - TST_Item2::~TST_Item2()
+ @exit - void test11()
+ @enter - void test12()
+  list.addLast(item1)
+  list.addLast(item2)
+  list.addLast(item3)
+  list.population() = 3
+  iter.remove()
+  iter.item()->value() = 1
+  list.population() = 2
+  iter.next()
+  @enter - TST_Item2::~TST_Item2()
+   this->value() = 1
+  @exit - TST_Item2::~TST_Item2()
+  iter.remove()
+  iter.item()->value() = 2
+  list.population() = 1
+  iter.next()
+  @enter - TST_Item2::~TST_Item2()
+   this->value() = 2
+  @exit - TST_Item2::~TST_Item2()
+  iter.remove()
+  iter.item()->value() = 3
+  list.population() = 0
+  iter.next()
+  @enter - TST_Item2::~TST_Item2()
+   this->value() = 3
+  @exit - TST_Item2::~TST_Item2()
+ @exit - void test12()
+ @enter - void test13()
+  list.addLast(item3)
+  list.addLast(item4)
+  list.population() = 2
+  iter(list)
+  iter.resetFirst()
+  iter.prev()
+  iter.addAfter(item2)
+  iter.addBefore(item1)
+  list.population() = 4
+  iter.resetLast()
+  iter.next()
+  iter.addBefore(item5)
+  iter.addAfter(item6)
+  list.population() = 6
+  list.items() = 1 2 3 4 5 6
+  @enter - TST_Item2::~TST_Item2()
+   this->value() = 1
+  @exit - TST_Item2::~TST_Item2()
+  @enter - TST_Item2::~TST_Item2()
+   this->value() = 2
+  @exit - TST_Item2::~TST_Item2()
+  @enter - TST_Item2::~TST_Item2()
+   this->value() = 3
+  @exit - TST_Item2::~TST_Item2()
+  @enter - TST_Item2::~TST_Item2()
+   this->value() = 4
+  @exit - TST_Item2::~TST_Item2()
+  @enter - TST_Item2::~TST_Item2()
+   this->value() = 5
+  @exit - TST_Item2::~TST_Item2()
+  @enter - TST_Item2::~TST_Item2()
+   this->value() = 6
+  @exit - TST_Item2::~TST_Item2()
+ @exit - void test13()
+@exit - void test1()

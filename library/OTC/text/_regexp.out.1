@@ -1,0 +1,306 @@
+@enter - void test1()
+ @enter - void test2()
+  OTC_Regexp::whiteSpace().pattern() = [ 
+  	]+
+  OTC_Regexp::whiteSpace().isValid() = 1
+  OTC_Regexp::optWhiteSpace().pattern() = [ 
+  	]*
+  OTC_Regexp::optWhiteSpace().isValid() = 1
+  OTC_Regexp::nonWhiteSpace().pattern() = [^ 
+  	]+
+  OTC_Regexp::nonWhiteSpace().isValid() = 1
+  OTC_Regexp::alphabetic().pattern() = [A-Za-z]+
+  OTC_Regexp::alphabetic().isValid() = 1
+  OTC_Regexp::lowerCase().pattern() = [a-z]+
+  OTC_Regexp::lowerCase().isValid() = 1
+  OTC_Regexp::upperCase().pattern() = [A-Z]+
+  OTC_Regexp::upperCase().isValid() = 1
+  OTC_Regexp::alphaNumeric().pattern() = [0-9A-Za-z]+
+  OTC_Regexp::alphaNumeric().isValid() = 1
+  OTC_Regexp::identifier().pattern() = [A-Za-z_][A-Za-z0-9_]*
+  OTC_Regexp::identifier().isValid() = 1
+  OTC_Regexp::matchingQuotes().pattern() = "[^"]*"
+  OTC_Regexp::matchingQuotes().isValid() = 1
+  OTC_Regexp::integerValue().pattern() = -?[0-9]+
+  OTC_Regexp::integerValue().isValid() = 1
+  OTC_Regexp::realValue().pattern() = -?(([0-9]+\.[0-9]*)|([0-9]+)|(\.[0-9]+))([eE][---+]?[0-9]+)?
+  OTC_Regexp::realValue().isValid() = 1
+  OTC_Regexp::quotedString().pattern() = "([^"\\]|\\"|\\)*"
+  OTC_Regexp::quotedString().isValid() = 1
+ @exit - void test2()
+ @enter - void test3()
+  pattern = [ 
+  	]+
+  pattern.match("") = 0
+  pattern.start() = 0
+  pattern.length() = 0
+  pattern.match(" ") = 1
+  pattern.start() = 0
+  pattern.length() = 1
+  pattern.match("1234") = 0
+  pattern.start() = 0
+  pattern.length() = 0
+  pattern.match("ABcd") = 0
+  pattern.start() = 0
+  pattern.length() = 0
+  pattern.match("12 Cd") = 1
+  pattern.start() = 2
+  pattern.length() = 1
+ @exit - void test3()
+ @enter - void test4()
+  pattern = [ 
+  	]*
+  pattern.match("") = 1
+  pattern.start() = 0
+  pattern.length() = 0
+  pattern.match(" ") = 1
+  pattern.start() = 0
+  pattern.length() = 1
+  pattern.match("1234") = 1
+  pattern.start() = 0
+  pattern.length() = 0
+  pattern.match("ABcd") = 1
+  pattern.start() = 0
+  pattern.length() = 0
+  pattern.match("12 Cd") = 1
+  pattern.start() = 0
+  pattern.length() = 0
+ @exit - void test4()
+ @enter - void test5()
+  pattern = [^ 
+  	]+
+  pattern.match("") = 0
+  pattern.start() = 0
+  pattern.length() = 0
+  pattern.match(" ") = 0
+  pattern.start() = 0
+  pattern.length() = 0
+  pattern.match("1234") = 1
+  pattern.start() = 0
+  pattern.length() = 4
+  pattern.match("ABcd") = 1
+  pattern.start() = 0
+  pattern.length() = 4
+  pattern.match("12 Cd") = 1
+  pattern.start() = 0
+  pattern.length() = 2
+ @exit - void test5()
+ @enter - void test6()
+  pattern = [A-Za-z]+
+  pattern.match("") = 0
+  pattern.start() = 0
+  pattern.length() = 0
+  pattern.match(" ") = 0
+  pattern.start() = 0
+  pattern.length() = 0
+  pattern.match("1234") = 0
+  pattern.start() = 0
+  pattern.length() = 0
+  pattern.match("ABcd") = 1
+  pattern.start() = 0
+  pattern.length() = 4
+  pattern.match("12 Cd") = 1
+  pattern.start() = 3
+  pattern.length() = 2
+ @exit - void test6()
+ @enter - void test7()
+  pattern = [a-z]+
+  pattern.match("") = 0
+  pattern.start() = 0
+  pattern.length() = 0
+  pattern.match(" ") = 0
+  pattern.start() = 0
+  pattern.length() = 0
+  pattern.match("1234") = 0
+  pattern.start() = 0
+  pattern.length() = 0
+  pattern.match("ABcd") = 1
+  pattern.start() = 2
+  pattern.length() = 2
+  pattern.match("12 Cd") = 1
+  pattern.start() = 4
+  pattern.length() = 1
+ @exit - void test7()
+ @enter - void test8()
+  pattern = [A-Z]+
+  pattern.match("") = 0
+  pattern.start() = 0
+  pattern.length() = 0
+  pattern.match(" ") = 0
+  pattern.start() = 0
+  pattern.length() = 0
+  pattern.match("1234") = 0
+  pattern.start() = 0
+  pattern.length() = 0
+  pattern.match("ABcd") = 1
+  pattern.start() = 0
+  pattern.length() = 2
+  pattern.match("12 Cd") = 1
+  pattern.start() = 3
+  pattern.length() = 1
+ @exit - void test8()
+ @enter - void test9()
+  pattern = [0-9A-Za-z]+
+  pattern.match("") = 0
+  pattern.start() = 0
+  pattern.length() = 0
+  pattern.match(" ") = 0
+  pattern.start() = 0
+  pattern.length() = 0
+  pattern.match("1234") = 1
+  pattern.start() = 0
+  pattern.length() = 4
+  pattern.match("ABcd") = 1
+  pattern.start() = 0
+  pattern.length() = 4
+  pattern.match("12Cd") = 1
+  pattern.start() = 0
+  pattern.length() = 4
+ @exit - void test9()
+ @enter - void test10()
+  pattern = [A-Za-z_][A-Za-z0-9_]*
+  pattern.match("") = 0
+  pattern.start() = 0
+  pattern.length() = 0
+  pattern.match(" ") = 0
+  pattern.start() = 0
+  pattern.length() = 0
+  pattern.match("1234") = 0
+  pattern.start() = 0
+  pattern.length() = 0
+  pattern.match("ABcd") = 1
+  pattern.start() = 0
+  pattern.length() = 4
+  pattern.match("12Cd") = 1
+  pattern.start() = 2
+  pattern.length() = 2
+  pattern.match("Cd12") = 1
+  pattern.start() = 0
+  pattern.length() = 4
+ @exit - void test10()
+ @enter - void test11()
+  pattern = "[^"]*"
+  pattern.match("") = 0
+  pattern.start() = 0
+  pattern.length() = 0
+  pattern.match(" ") = 0
+  pattern.start() = 0
+  pattern.length() = 0
+  pattern.match("1234") = 0
+  pattern.start() = 0
+  pattern.length() = 0
+  s1 = A"Bc"d
+  pattern.match(s1) = 1
+  pattern.start() = 1
+  pattern.length() = 4
+  s2 = 12"Cd
+  pattern.match(s2) = 0
+  pattern.start() = 0
+  pattern.length() = 0
+  s3 = "Cd" "12"
+  pattern.match(s3) = 1
+  pattern.start() = 0
+  pattern.length() = 4
+  s4 = "Cd\"\"12"
+  pattern.match(s4) = 1
+  pattern.start() = 0
+  pattern.length() = 5
+ @exit - void test11()
+ @enter - void test12()
+  pattern = -?[0-9]+
+  pattern.match("") = 0
+  pattern.start() = 0
+  pattern.length() = 0
+  pattern.match(" ") = 0
+  pattern.start() = 0
+  pattern.length() = 0
+  pattern.match("12.34") = 1
+  pattern.start() = 0
+  pattern.length() = 2
+  pattern.match("12ab") = 1
+  pattern.start() = 0
+  pattern.length() = 2
+ @exit - void test12()
+ @enter - void test13()
+  pattern = -?(([0-9]+\.[0-9]*)|([0-9]+)|(\.[0-9]+))([eE][---+]?[0-9]+)?
+  pattern.match("") = 0
+  pattern.start() = 0
+  pattern.length() = 0
+  pattern.match(" ") = 0
+  pattern.start() = 0
+  pattern.length() = 0
+  pattern.match("12") = 1
+  pattern.start() = 0
+  pattern.length() = 2
+  pattern.match("-12") = 1
+  pattern.start() = 0
+  pattern.length() = 3
+  pattern.match("12.34") = 1
+  pattern.start() = 0
+  pattern.length() = 5
+  pattern.match("-12.34") = 1
+  pattern.start() = 0
+  pattern.length() = 6
+  pattern.match(".34") = 1
+  pattern.start() = 0
+  pattern.length() = 3
+  pattern.match("-.34") = 1
+  pattern.start() = 0
+  pattern.length() = 4
+  pattern.match("3e1") = 1
+  pattern.start() = 0
+  pattern.length() = 3
+  pattern.match("3E1") = 1
+  pattern.start() = 0
+  pattern.length() = 3
+  pattern.match("3E-1") = 1
+  pattern.start() = 0
+  pattern.length() = 4
+  pattern.match("3E+1") = 1
+  pattern.start() = 0
+  pattern.length() = 4
+ @exit - void test13()
+ @enter - void test14()
+  pattern = "([^"\\]|\\"|\\)*"
+  pattern.match("") = 0
+  pattern.start() = 0
+  pattern.length() = 0
+  pattern.match(" ") = 0
+  pattern.start() = 0
+  pattern.length() = 0
+  pattern.match("1234") = 0
+  pattern.start() = 0
+  pattern.length() = 0
+  s1 = A"Bc"d
+  pattern.match(s1) = 1
+  pattern.start() = 1
+  pattern.length() = 4
+  s2 = 12"Cd
+  pattern.match(s2) = 0
+  pattern.start() = 0
+  pattern.length() = 0
+  s3 = "Cd" "12" "34" 56
+  pattern.match(s3) = 1
+  pattern.start() = 0
+  pattern.length() = 4
+  s4 = "Cd\"\"12" "34" 56
+  pattern.match(s4) = 1
+  pattern.start() = 0
+  pattern.length() = 10
+ @exit - void test14()
+ @enter - void test15()
+  error1 = too many ()
+  match = 1
+  p0 = 0
+  p1 = 0
+  p2 = 2
+  p3 = 4
+  p4 = 6
+  p5 = 8
+  p6 = 10
+  p7 = 12
+  p8 = 14
+  p9 = 16
+  p10 = 18
+ @exit - void test15()
+@exit - void test1()

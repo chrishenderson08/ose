@@ -1,0 +1,28 @@
+This directory is intended to be a demonstration of how an application
+written using the messaging framework implemented by the OSE C++ class
+libraries and Python wrappers can be integrated into Apache using the
+"mod_python" framework. The "mod_python" package can be obtained from:
+
+  http://www.modpython.org
+
+The actual rendering of HTML pages is facilitated through a third party
+package called "HTMLTemplate". The "HTMLTemplate" package can be obtained
+from:
+
+  http://freespace.virgin.net/hamish.sanderson/htmltemplate.html
+
+The ".htaccess" was originally setup for use with "mod_python" version 2.X.
+If using a later version, you may need to modify the SetHandler directive
+to be consistent with changes made in later versions. It is recommended that
+that Indexes and MultiViews be disabled.
+
+NOTE: If you aren't interested in the "netsvc" package as a whole, you
+can make a copy of the Apache mod_python handler and module cache contained
+within the "netsvc" module and use it separately under the terms of the BSD
+style license described in the "setup.py" file in the root source directory.
+
+To do this, first replace the file called "_mputils/apache.py" with a copy
+of the file "../../netsvc/apache/__init__.py". Next edit the copy and
+replace the import line "from netsvc import cache" with "import cache"
+instead. Finally, replace the file called "_mputils/cache.py" with a copy
+of "../../netsvc/cache/__init__.py".

@@ -1,0 +1,259 @@
+@enter - void test1()
+ @enter - void test2()
+  list.first() = 0
+  list.last() = 0
+  list.population() = 0
+  list.isEmpty() = 1
+  list.removeAll()
+  list.first() = 0
+  list.last() = 0
+  list.population() = 0
+  list.isEmpty() = 1
+ @exit - void test2()
+ @enter - void test3()
+  iter.resetStart()
+  iter.isLink() = 0
+  iter.isStart() = 1
+  iter.isEnd() = 0
+  iter.link() = 0
+  iter.next()
+  iter.isLink() = 0
+  iter.isStart() = 0
+  iter.isEnd() = 1
+  iter.link() = 0
+  iter = list.items()
+  iter.resetEnd()
+  iter.isLink() = 0
+  iter.isStart() = 0
+  iter.isEnd() = 1
+  iter.link() = 0
+  iter.prev()
+  iter.isLink() = 0
+  iter.isStart() = 1
+  iter.isEnd() = 0
+  iter.link() = 0
+  iter.resetStart()
+  iter.prev()
+  iter.isLink() = 0
+  iter.isStart() = 1
+  iter.isEnd() = 0
+  iter.link() = 0
+  iter.resetEnd()
+  iter.next()
+  iter.isLink() = 0
+  iter.isStart() = 0
+  iter.isEnd() = 1
+  iter.link() = 0
+ @exit - void test3()
+ @enter - void test4()
+  list.addFirst(link1)
+  list.addFirst(link2)
+  list.first()->value() = 1
+  list.last()->value() = 2
+  list.population() = 2
+  list.isEmpty() = 0
+  list.removeAll()
+  list.first() = 0
+  list.last() = 0
+  list.population() = 0
+  list.isEmpty() = 1
+ @exit - void test4()
+ @enter - void test4()
+  list.addFirst(link1)
+  list.addFirst(link2)
+  iter.resetStart()
+  iter.isLink() = 0
+  iter.isStart() = 1
+  iter.isEnd() = 0
+  iter.link() = 0
+  iter.next()
+  iter.isLink() = 1
+  iter.isStart() = 0
+  iter.isEnd() = 0
+  iter.link->isDead() = 0
+  iter.link->value() = 1
+  iter.next()
+  iter.isLink() = 1
+  iter.isStart() = 0
+  iter.isEnd() = 0
+  iter.link->isDead() = 0
+  iter.link->value() = 2
+  iter.next()
+  iter.isLink() = 0
+  iter.isStart() = 0
+  iter.isEnd() = 1
+  iter.link() = 0
+  iter = list.items()
+  iter.resetEnd()
+  iter.isLink() = 0
+  iter.isStart() = 0
+  iter.isEnd() = 1
+  iter.link() = 0
+  iter.prev()
+  iter.isLink() = 1
+  iter.isStart() = 0
+  iter.isEnd() = 0
+  iter.link->isDead() = 0
+  iter.link->value() = 2
+  iter.prev()
+  iter.isLink() = 1
+  iter.isStart() = 0
+  iter.isEnd() = 0
+  iter.link->isDead() = 0
+  iter.link->value() = 1
+  iter.prev()
+  iter.isLink() = 0
+  iter.isStart() = 1
+  iter.isEnd() = 0
+  iter.link() = 0
+  list.removeAll()
+  list.first() = 0
+  list.last() = 0
+  list.population() = 0
+  list.isEmpty() = 1
+ @exit - void test4()
+ @enter - void test6()
+  list.addFirst(link1)
+  list.addFirst(link2)
+  iter.isLink() = 1
+  iter.isStart() = 0
+  iter.isEnd() = 0
+  iter.link->isDead() = 0
+  iter.link->value() = 1
+  list.first()->value() = 1
+  list.last()->value() = 2
+  list.population() = 2
+  list.isEmpty() = 0
+  list.removeAll()
+  list.first() = 0
+  list.last() = 0
+  list.population() = 0
+  list.isEmpty() = 1
+  iter.isLink() = 1
+  iter.isStart() = 0
+  iter.isEnd() = 0
+  iter.link->isDead() = 1
+  iter.link->value() = 1
+ @exit - void test6()
+ @enter - void test7()
+  list.addFirst(link1)
+  list.addFirst(link2)
+  list.first()->value() = 1
+  list.last()->value() = 2
+  list.population() = 2
+  list.isEmpty() = 0
+  iter.isLink() = 1
+  iter.isStart() = 0
+  iter.isEnd() = 0
+  iter.link->isDead() = 0
+  iter.link->value() = 1
+  iter.link()->kill()
+  list.first()->value() = 2
+  list.last()->value() = 2
+  list.population() = 1
+  list.isEmpty() = 0
+  iter.isLink() = 1
+  iter.isStart() = 0
+  iter.isEnd() = 0
+  iter.link->isDead() = 1
+  iter.link->value() = 1
+  iter.next()
+  iter.prev()
+  iter.isLink() = 0
+  iter.isStart() = 1
+  iter.isEnd() = 0
+  iter.link() = 0
+ @exit - void test7()
+ @enter - void test8()
+  list.addFirst(link1)
+  list.addFirst(link2)
+  list.first()->value() = 1
+  list.last()->value() = 2
+  list.population() = 2
+  list.isEmpty() = 0
+  iter.isLink() = 1
+  iter.isStart() = 0
+  iter.isEnd() = 0
+  iter.link->isDead() = 0
+  iter.link->value() = 1
+  iter.link()->addAfter(link3)
+  list.first()->value() = 1
+  list.last()->value() = 2
+  list.population() = 3
+  list.isEmpty() = 0
+  list.items() = 1 3 2
+ @exit - void test8()
+ @enter - void test9()
+  list1.addFirst(link1)
+  list1.addFirst(link2)
+  list1.first()->value() = 1
+  list1.last()->value() = 2
+  list1.population() = 2
+  list1.isEmpty() = 0
+  list2.addLast(link1)
+  list1.first()->value() = 2
+  list1.last()->value() = 2
+  list1.population() = 1
+  list1.isEmpty() = 0
+  list2.first()->value() = 1
+  list2.last()->value() = 1
+  list2.population() = 1
+  list2.isEmpty() = 0
+  list2.addFirst(link2)
+  list1.first() = 0
+  list1.last() = 0
+  list1.population() = 0
+  list1.isEmpty() = 1
+  list2.first()->value() = 2
+  list2.last()->value() = 1
+  list2.population() = 2
+  list2.isEmpty() = 0
+ @exit - void test9()
+ @enter - void test10()
+  list->addFirst(link1)
+  list->addFirst(link2)
+  delete list
+  iter.isLink() = 0
+  iter.isStart() = 1
+  iter.isEnd() = 0
+  iter.link() = 0
+  iter.next()
+  iter.isLink() = 0
+  iter.isStart() = 0
+  iter.isEnd() = 1
+  iter.link() = 0
+  iter.prev()
+  iter.isLink() = 0
+  iter.isStart() = 1
+  iter.isEnd() = 0
+  iter.link() = 0
+ @exit - void test10()
+ @enter - void test11()
+  list.addFirst(link1)
+  list.addFirst(link2)
+  list.first()->value() = 1
+  list.last()->value() = 2
+  list.population() = 2
+  list.isEmpty() = 0
+  iter1 = list.items()
+  iter1.resetStart()
+  iter1.next()
+  iter1.isLink() = 1
+  iter1.isStart() = 0
+  iter1.isEnd() = 0
+  iter1.link->isDead() = 0
+  iter1.link->value() = 1
+  iter1.link()->kill()
+  list.first()->value() = 2
+  list.last()->value() = 2
+  list.population() = 1
+  list.isEmpty() = 0
+  iter1 = iter2
+  list.items() = 2
+  list.items() = 2
+ @exit - void test11()
+ @enter - void test12()
+  iter1.items() = 2 3 4
+  iter2.items() = 1 2 3 4 5
+ @exit - void test12()
+@exit - void test1()

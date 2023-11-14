@@ -1,0 +1,5 @@
+Options -Indexes -MultiViews
+DirectoryIndex index.html
+SetHandler python-program
+PythonHandler _mputils.apache
+PythonDebug On

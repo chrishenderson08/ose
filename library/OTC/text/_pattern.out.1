@@ -1,0 +1,61 @@
+@enter - void test1()
+ @enter - void test2()
+  isValid = 1
+  error = 
+  match("") = 1
+  error = 
+  range(0) = (0,0)
+  match("XXX") = 1
+  error = 
+  range(0) = (0,3)
+  match("X\0X",3) = 1
+  error = 
+  range(0) = (0,3)
+ @exit - void test2()
+ @enter - void test3()
+  isValid = 1
+  error = 
+  match("") = 0
+  error = error REG_NOMATCH, 'regexec() failed to match'
+  start(0) = -1
+  range(0) = (0,0)
+  start(1) = -1
+  range(1) = (0,0)
+  start(2) = -1
+  range(2) = (0,0)
+  start(3) = -1
+  range(3) = (0,0)
+  start(4) = -1
+  range(4) = (0,0)
+  start(5) = -1
+  range(5) = (0,0)
+  match("XXX") = 1
+  error = 
+  start(0) = 0
+  range(0) = (0,3)
+  start(1) = 0
+  range(1) = (0,3)
+  start(2) = 0
+  range(2) = (0,1)
+  start(3) = 1
+  range(3) = (1,2)
+  start(4) = 1
+  range(4) = (1,1)
+  start(5) = 2
+  range(5) = (2,1)
+  match("XXXX") = 0
+  error = error REG_NOMATCH, 'regexec() failed to match'
+  start(0) = -1
+  range(0) = (0,0)
+  start(1) = -1
+  range(1) = (0,0)
+  start(2) = -1
+  range(2) = (0,0)
+  start(3) = -1
+  range(3) = (0,0)
+  start(4) = -1
+  range(4) = (0,0)
+  start(5) = -1
+  range(5) = (0,0)
+ @exit - void test3()
+@exit - void test1()

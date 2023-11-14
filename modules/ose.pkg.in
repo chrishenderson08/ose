@@ -1,0 +1,10 @@
+ifeq "$(OSE_PREFIX)" ""
+override OSE_PREFIX = @prefix@
+endif
+
+ifeq "$(OSE_VERSION)" ""
+override OSE_VERSION = @PACKAGE_NAME@-@PACKAGE_VERSION@
+endif
+
+MAKEIT_MODULE_PATH += $(OSE_PREFIX)/lib/$(OSE_VERSION)/modules
+MAKEIT_MODULE_DEPENDENCIES += $(OSE_PREFIX)/lib/$(OSE_VERSION)/modules/ose.d

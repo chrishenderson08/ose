@@ -1,0 +1,60 @@
+@enter - void test1()
+ @enter - void test2()
+  set.population() = 0
+  set.isEmpty() = 1
+  set.removeAll()
+  set.population() = 0
+  set.isEmpty() = 1
+  iter.isValid() = 0
+ @exit - void test2()
+ @enter - void test3()
+  set.population() = 100
+  set.isEmpty() = 0
+  set.items() = 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99
+ @exit - void test3()
+ @enter - void test4()
+  set1.population() = 100
+  set1.isEmpty() = 0
+  set2(set1)
+  set1.population() = 100
+  set1.isEmpty() = 0
+  set2.population() = 100
+  set2.isEmpty() = 0
+  set2 = set2
+  set2.population() = 100
+  set2.isEmpty() = 0
+  set2.removeAll()
+  set2.population() = 0
+  set2.isEmpty() = 1
+  set2 = set1
+  set2.population() = 100
+  set2.isEmpty() = 0
+ @exit - void test4()
+ @enter - void test5()
+  set items = 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99
+ @exit - void test5()
+ @enter - void test6()
+  set.population() = 100
+  set.isEmpty() = 0
+  set.population() = 0
+  set.isEmpty() = 1
+  set.items() =
+ @exit - void test6()
+ @enter - void test7()
+  set.items() = 0 1 2 3 4 5 6 7 8 9
+  set.items() = 0 1 2 3 4 5 6 7 8 9
+ @exit - void test7()
+ @enter - void test8()
+  population = 2500
+  set.population() = 2500
+  set.isEmpty() = 0
+ @exit - void test8()
+ @enter - void test9()
+  list.population() = 10
+  list.isEmpty() = 0
+  list.items() = 0 10 31 47 16 18 48 20 22 9
+  set.population() = 10
+  set.isEmpty() = 0
+  set.items() = 0 9 10 16 18 20 22 31 47 48
+ @exit - void test9()
+@exit - void test1()

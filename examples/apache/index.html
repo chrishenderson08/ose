@@ -1,0 +1,225 @@
+<html>
+
+<head>
+<title>Apache Integration</title>
+</head>
+
+<body>
+
+<h1>Apache Integration</h1>
+
+<p>
+This directory is a demonstration of how an application written using the
+messaging framework implemented by the OSE C++ class libraries and Python
+wrappers can be integrated into Apache using
+<a href="http://www.modpython.org">mod_python</a>.
+
+</p>
+
+<h2>The mod_python Handler</h2>
+
+<p>
+Apache integration is achieved using mod_python. This is an Apache module
+that embeds the Python interpreter within the Apache server. With
+mod_python it is possible to intercept specific HTTP requests and have your
+own Python code executed in order to generate the desired result. In
+practice one can define Python code to be executed for any of the different
+processing phases for a request as implemented by Apache. In this example
+only the content handler is being implemented in Python.
+
+</p>
+<p>
+The actual Python code implementing the content handler is defined in the
+"netsvc.apache" module. The content handler is designed so as to be executed
+when any request which falls under this root directory is received.
+
+</p>
+<p>
+Although all requests under this root directory are passed through the
+content handler, only requests of interest are processed by it.
+Specifically, only requests for files where an associated Python code
+file is identified to be run in association with that request are actually
+processed by the content handler. All other requests are passed back to
+Apache to be handled.
+
+</p>
+<p>
+What this means is that you can still have a mixture of file types in a
+directory. For example, plain text or HTML files, image files as well as
+any files which have Python code associated with them. Except for the
+case where special Python code needs to be executed, the full speed of
+Apache is used in returning the content of the file. Because any Python
+code present relates to the implementation of the service being provided,
+all requests to get the actual Python code files will however by default
+be blocked.
+
+</p>
+
+<h2>Page Templating System</h2>
+
+<p>
+There are many different page templating systems available for building
+web sites. In this example, the rendering of HTML pages is facilitated
+through a third party package called
+<a href="http://freespace.virgin.net/hamish.sanderson/htmltemplate.html">
+HTMLTemplate</a>. You should however be able to use any HTML page template
+system designed for use with mod_python.
+
+</p>
+<p>
+Unlike the majority of page templating systems, when using the HTMLTemplate
+system there is a clean separation between the HTML markup and the Python
+code used in producing it. That is, there is no Python code embedded within
+the HTML markup, nor is the HTML markup embedded within the body of the
+Python code.
+
+</p>
+<p>
+The design of the "netsvc.apache" content handler and the provision of
+a caching mechanism around HTMLTemplate encourages this separation even
+further. This is done by making it easier to structure files such that the
+HTML markup and Python code are actually in distinct files. That the Python
+code is associated with a specific HTML file is generally denoted by giving
+the file containing the Python code the same basename as the HTML file, but
+with a ".py" extension instead of ".html" attached. For example, if the
+HTML file is called "example.html", the Python code file associated with it
+would be called "example.py".
+
+</p>
+<p>
+Separating the Python code from the HTML markup has the advantage that
+professional web page design software can be used to generate the HTML
+files. The separate Python code can then be created as required by
+the code developer. All the web page designer needs to do is include
+the appropriate node designations in the HTML markup that the code will
+reference.
+
+</p>
+
+<h2>Further Documentation</h2>
+
+<p>
+For now, this overview document isn't going to go any further into
+describing how the system all hangs together. In time, everything will
+be properly explained in the documentation for the Python wrappers
+supplied with OSE. As such, the samples contained here and described
+below will have to suffice as examples of what can be achieved.
+
+</p>
+
+<h2>Basic mod_python Test</h2>
+
+<p>
+The basic mod_python test as described in the mod_python documentation
+is accessed as "<a href="mptest.html">mptest.html</a>". This illustrates
+the first difference when using the "netsvc.apache" module.
+Specifically, that although the Python code file is called 
+"<a href="source/mptest.py">mptest.py</a>", you access the generated page
+as "mptest.html".
+
+</p>
+<p>
+Further, normally when using mod_python and the PythonHandler directive in
+the ".htaccess" file is set to be a module such as "mptest", any access to
+a file in that directory where the extension is ".py" would be processed
+through the "mptest.py" file. This is not the case here and when using
+the "netsvc.apache" module there can in fact be multiple content handlers
+present within the same directory, the output of which is accessed under
+unique URLs. Thus, the "netsvc.apache" module is not a content handler at
+all, but merely works out which actual content handler to execute based on
+what is requested.
+
+</p>
+
+<h2>Generating HTML Pages</h2>
+
+<p>
+A mod_python content handler can within itself explicitly generate any
+HTML content. This can be a labourious task and so use of a page templating
+system is often preferred. For this example, the HTMLTemplate module is
+being used to assist in this process. The first illustration of this is
+the "<a href="details.html">details.html</a>" page.
+
+</p>
+<p>
+When you follow this link, reload the page a few times and you will see the
+data contained within change upon each request. The information you see
+presented on the page helps to illustrate a number of important concepts
+related to the HTML page templating system, as well as the basic operation
+of the "netsvc.apache" module.
+
+</p>
+<p>
+The most obvious is the separation between the HTML markup and the Python
+code which is executed to fill out the content within the page. The HTML
+markup is stored in the file "<a href="source/details.html">details.html</a>"
+and the Python code is stored in the file "<a href="source/details.py">
+details.py</a>".
+
+</p>
+<p>
+Examining the Python code one can see how the corresponding file containing
+the HTML markup is loaded in as a template object, the data filled in and
+the rendered result returned to the requesting client. The loading of the
+file is mediated through a template cache so as to avoid reloading of a
+page when it hasn't been changed.
+
+</p>
+<p>
+This function of the cache can be illustrated if you were to touch the
+"details.html" file such that its modification time is updated. On the
+next attempt to access the page via the web server, you should see the
+"page-hits" counter drop back to zero for that page. This demonstrates
+that the content of the HTML file was reloaded.
+
+</p>
+<p>
+As well as automatically reloading the HTML file when it is changed, the
+actual Python code file will also be reloaded when it is changed. To
+illustrate this, touch the "details.py" file such that its modification
+time is updated. In this case when the page is next accessed, you should
+see the "code-hits" counter drop back to zero.
+
+</p>
+<p>
+Note that both the template cache and the module cache corresponding to the
+code file will perform a reload of a file on any change to the modification
+time of that file. Many caching systems only reload the Python code if its
+modification time changed such as to be more recent than before. This could
+be problematic as it wouldn't cater for cases where a much older version of
+files was restored so as to replace a newer version.
+
+</p>
+
+<h2>Sorry, Off On Holidays</h2>
+
+<p>
+More documentation and examples to come later, including some that actually
+use the messaging system. For now, also check out the following
+unexplained examples.
+
+</p>
+<p>
+<ul>
+<li><a href="iso3166.csv">iso3166.csv</a></li>
+<li><a href="iso3166.txt">iso3166.txt</a></li>
+<li><a href="iso3166.html">iso3166.html</a></li>
+</ul>
+
+</p>
+<p>
+The above is implemented by <a href="source/iso3166.py">iso3166.py</a>,
+although it actually reuses a module located in "_mputils" to do the
+real work.
+
+</p>
+<p>
+Also check out the files <a href="source/source.py">source.py</a> and
+<a href="source/source.html">source.html</a>. These together are how the
+source code is being viewed, something which is normally blocked.
+
+</p>
+
+</body>
+
+</html>

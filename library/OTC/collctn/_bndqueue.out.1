@@ -1,0 +1,64 @@
+@enter - void test1()
+ @enter - void test2()
+  queue1.isEmpty() = 1
+  queue1.isFull() = 1
+  queue2.isEmpty() = 1
+  queue2.isFull() = 0
+  queue3.isEmpty() = 1
+  queue3.isFull() = 0
+ @exit - void test2()
+ @enter - void test3()
+  queue1.add() = 0 1 2 3 4 5 6 7 8 9
+  queue1.remove() = 0 1 2 3 4 5 6 7 8 9
+ @exit - void test3()
+ @enter - void test4()
+  dump = -/0 -/1 -/2 -/3 -/4 0/5 1/6 2/7 3/8 4/9 5/10 6/11 7/12 8/13 9/14 10/15 11/16 12/17 13/18 14/19 15/- 16/- 17/- 18/- 19/-
+ @exit - void test4()
+ @enter - void test5()
+  queue1.capacity() = 10
+  queue1.add() = 0 1 2 3 4 5 6 7 8 9
+  queue1.count() = 10
+  queue1.clear()
+  queue1.count() = 0
+ @exit - void test5()
+ @enter - void test6()
+  queue1.capacity() = 10
+  queue1.add() = 0 1 2 3 4 5 6 7 8 9
+  queue1.count() = 10
+  queue1.discard(4)
+  queue1.count() = 6
+  queue1.remove() = 4
+  queue1.remove() = 5
+  queue1.discard(4)
+  queue1.count() = 0
+ @exit - void test6()
+ @enter - void test7()
+  queue1.add() = 0 1 2 3 4 5 6 7 8 9
+  queue1.remove() = 0 1 2 3 4 5 6 7 8 9
+ @exit - void test7()
+ @enter - void test8()
+  queue1.add() = 0 1 2 3 4 5 6 7 8 9
+  queue1.remove() =  0 1 2 3 4
+  queue1.add() = 10 11 12 13 14
+  queue1.peek(0) = 5
+  queue1.peek(1) = 6
+  queue1.peek(2) = 7
+  queue1.peek(3) = 8
+  queue1.peek(4) = 9
+  queue1.peek(5) = 10
+  queue1.peek(6) = 11
+  queue1.peek(7) = 12
+  queue1.peek(8) = 13
+  queue1.peek(9) = 14
+ @exit - void test8()
+ @enter - void test9()
+  queue1.add() = 0 1 2 3 4 5 6 7 8 9
+  queue1.remove() = 0 1 2 3 4 5 6 7 8 9
+  queue2.remove() = 0 1 2 3 4 5 6 7 8 9
+ @exit - void test9()
+ @enter - void test10()
+  queue1.add() = 0 1 2 3 4 5 6 7 8 9
+  queue1.remove() = 0 1 2 3 4 5 6 7 8 9
+  queue2.remove() = 0 1 2 3 4 5 6 7 8 9
+ @exit - void test10()
+@exit - void test1()

@@ -1,0 +1,14 @@
+This package contains "OSE" and consists of a C++ class library, Python
+wrappers for some of the functionality provided by that C++ class library
+and a build environment called "makeit".
+
+The different parts of OSE are distributed under different licenses. A
+description of the licensing arrangements for OSE are contained within the
+"COPYING" file. As to how to install OSE and its different components, see
+the "INSTALL" file.
+
+Any questions you may have should be directed to the "Help" web forum on
+the OSE web site at [http://ose.sourceforge.net]. Make it clear in your
+posts which version of this package you are using. You can find out exactly
+which version of this package you are using by looking in the "PACKAGE"
+file located in the same directory that this file resides.

@@ -1,0 +1,60 @@
+@enter - void test2()
+ 
+@exit - void test2()
+@enter - void test3()
+ <body/>
+@exit - void test3()
+@enter - void test4()
+ text
+@exit - void test4()
+@enter - void test5()
+ <body>text</body>
+@exit - void test5()
+@enter - void test6()
+ <body>text</body>
+@exit - void test6()
+@enter - void test7()
+ <html><body>text</body></html>
+@exit - void test7()
+@enter - void test8()
+ <html><head><title>text</title></head><body>text</body></html>
+@exit - void test8()
+@enter - void test9()
+ <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head><title>text</title></head><body>text</body></html>
+@exit - void test9()
+@enter - void test10()
+ <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head><title>text</title></head><body><p>text<b>text</b>text</p><p>text<b>text</b>text</p><p>text<b>text</b>text</p><p>text<b>text</b>text</p></body></html>
+@exit - void test10()
+@enter - void test11()
+ <html><head><title id="1">text</title></head><body id="2">text</body></html>
+ <head><title id="1">text</title></head>
+ <title id="1">text</title>
+ <body id="2">text</body>
+ <title id="1">text</title>
+@exit - void test11()
+@enter - void test12()
+ <p>text1</p>
+ <p>text1</p>
+ <p>text3</p>
+ <p>text5</p>
+@exit - void test12()
+@enter - void test13()
+ <html markup=" &lt;&gt;&amp;&quot;&apos; " escape=" &#x1;&#xA;~&#x7F;&#x80; "><head><title>text</title></head><body>text &lt;&gt;&amp;&quot;&apos; &#x1;&#xA;~&#x7F;&#x80; </body></html>
+@exit - void test13()
+@enter - void test14()
+ numChildren=0
+ <root><0>0</0><1>1</1><2>2</2></root>
+ numChildren=3
+ <0>0</0>
+ <1>1</1>
+ <2>2</2>
+ <root><0>0</0><2>2</2></root>
+ numChildren=2
+ <0>0</0>
+ <2>2</2>
+ <root><0>0</0><2>2</2></root>
+ numChildren=2
+ <0>0</0>
+ <2>2</2>
+ numChildren=0
+@exit - void test14()

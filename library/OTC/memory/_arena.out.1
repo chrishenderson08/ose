@@ -1,0 +1,58 @@
+@enter - void test1()
+ @enter - void test2()
+  blockSize=2040
+  slop=16
+  align=4
+  freeBlocks=0
+  fullBlocks=0
+ @exit - void test2()
+ @enter - void test3()
+  blockSize=2040
+  slop=16
+  align=1
+  freeBlocks=1
+  fullBlocks=0
+ @exit - void test3()
+ @enter - void test4()
+  blockSize=2040
+  slop=16
+  align=1
+  freeBlocks=1
+  fullBlocks=0
+ @exit - void test4()
+ @enter - void test5()
+  blockSize=2040
+  slop=16
+  align=1
+  freeBlocks=0
+  fullBlocks=1
+ @exit - void test5()
+ @enter - void test6()
+  blockSize=2040
+  slop=16
+  align=1
+  freeBlocks=0
+  fullBlocks=1
+ @exit - void test6()
+ @enter - void test7()
+  blockSize=2040
+  slop=16
+  align=1
+  freeBlocks=0
+  fullBlocks=3
+ @exit - void test7()
+ @enter - void test8()
+  blockSize=2040
+  slop=16
+  align=1
+  freeBlocks=2
+  fullBlocks=0
+ @exit - void test8()
+ @enter - void test9()
+  blockSize=2040
+  slop=16
+  align=1
+  freeBlocks=1
+  fullBlocks=1
+ @exit - void test9()
+@exit - void test1()

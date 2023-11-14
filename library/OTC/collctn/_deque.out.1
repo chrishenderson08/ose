@@ -1,0 +1,215 @@
+@enter - void test1()
+ @enter - void test2()
+  deque.population() = 0
+  deque.isEmpty() = 1
+  deque.removeAll()
+  deque.population() = 0
+  deque.isEmpty() = 1
+  iter.isValid() = 0
+ @exit - void test2()
+ @enter - void test3()
+  deque.addFirst(item1)
+  deque.addLast(item2)
+  deque.population() = 2
+  deque.isEmpty() = 0
+  deque.removeAll()
+  deque.population() = 0
+  deque.isEmpty() = 1
+  deque.addFirst(item1)
+  deque.addLast(item2)
+  deque.population() = 2
+  deque.isEmpty() = 0
+  deque.first().value() = 1
+  deque.last().value() = 2
+  deque.items() = 1 2
+ @exit - void test3()
+ @enter - void test4()
+  deque1.addFirst(item1)
+  deque1.addLast(item2)
+  deque1.population() = 2
+  deque1.isEmpty() = 0
+  deque1.items() = 1 2
+  deque1 = deque1
+  deque1.population() = 2
+  deque1.isEmpty() = 0
+  deque1.items() = 1 2
+  deque2(deque1)
+  deque1.population() = 2
+  deque1.isEmpty() = 0
+  deque1.items() = 1 2
+  deque2.population() = 2
+  deque2.isEmpty() = 0
+  deque2.items() = 1 2
+  deque1.removeAll()
+  deque1.population() = 0
+  deque1.isEmpty() = 1
+  deque1.items() =
+  deque2.population() = 2
+  deque2.isEmpty() = 0
+  deque2.items() = 1 2
+  deque1 = deque2
+  deque1.population() = 2
+  deque1.isEmpty() = 0
+  deque1.items() = 1 2
+  deque2.population() = 2
+  deque2.isEmpty() = 0
+  deque2.items() = 1 2
+ @exit - void test4()
+ @enter - void test5()
+  deque.addLast(item1)
+  deque.addLast(item2)
+  deque.addLast(item3)
+  deque.population() = 3
+  deque.isEmpty() = 0
+  deque.first().value() = 1
+  deque.last().value() = 3
+  deque.removeFirst()
+  deque.population() = 2
+  deque.isEmpty() = 0
+  deque.first().value() = 2
+  deque.last().value() = 3
+  deque.removeLast()
+  deque.population() = 1
+  deque.isEmpty() = 0
+  deque.first().value() = 2
+  deque.last().value() = 2
+ @exit - void test5()
+ @enter - void test6()
+  deque.addLast(item1)
+  deque.addLast(item2)
+  deque.addLast(item3)
+  deque.items(OTCLIB_FORWARD) = 1 2 3
+  deque.items(OTCLIB_BACKWARD) = 3 2 1
+  deque.items(OTCLIB_FORWARD) = 1 2 3
+  deque.items(OTCLIB_BACKWARD) = 3 2 1
+ @exit - void test6()
+ @enter - void test7()
+  deque.addLast(item1)
+  deque.addLast(item2)
+  deque.addLast(item3)
+  deque.items() = 1 2 3
+  items.invert()
+  deque.items() = -1 -2 -3
+ @exit - void test7()
+ @enter - void test8()
+  deque.addLast(item1)
+  deque.addLast(item2)
+  deque.addLast(item3)
+  deque.items() = 1 2 3
+  deque.items() = 1 2 3
+ @exit - void test8()
+ @enter - void test9()
+  deque.addLast(item1)
+  deque.addLast(item2)
+  deque.addLast(item3)
+  deque.removeAll()
+  @enter - TST_Item2::~TST_Item2()
+   this->value() = 1
+  @exit - TST_Item2::~TST_Item2()
+  @enter - TST_Item2::~TST_Item2()
+   this->value() = 2
+  @exit - TST_Item2::~TST_Item2()
+  @enter - TST_Item2::~TST_Item2()
+   this->value() = 3
+  @exit - TST_Item2::~TST_Item2()
+  deque.addLast(item4)
+  deque.addLast(item5)
+  deque.addLast(item6)
+  @enter - TST_Item2::~TST_Item2()
+   this->value() = 4
+  @exit - TST_Item2::~TST_Item2()
+  @enter - TST_Item2::~TST_Item2()
+   this->value() = 5
+  @exit - TST_Item2::~TST_Item2()
+  @enter - TST_Item2::~TST_Item2()
+   this->value() = 6
+  @exit - TST_Item2::~TST_Item2()
+ @exit - void test9()
+ @enter - void test10()
+  deque1.addLast(item1)
+  deque1.addLast(item2)
+  deque1.addLast(item3)
+  deque2.addLast(item2)
+  deque1.removeAll()
+  @enter - TST_Item2::~TST_Item2()
+   this->value() = 1
+  @exit - TST_Item2::~TST_Item2()
+  @enter - TST_Item2::~TST_Item2()
+   this->value() = 3
+  @exit - TST_Item2::~TST_Item2()
+  deque2.removeAll()
+  @enter - TST_Item2::~TST_Item2()
+   this->value() = 2
+  @exit - TST_Item2::~TST_Item2()
+ @exit - void test10()
+ @enter - void test11()
+  deque.addLast(item1)
+  deque.addLast(item2)
+  deque.addLast(item3)
+  deque.removeFirst()
+  @enter - TST_Item2::~TST_Item2()
+   this->value() = 1
+  @exit - TST_Item2::~TST_Item2()
+  deque.removeFirst()
+  @enter - TST_Item2::~TST_Item2()
+   this->value() = 2
+  @exit - TST_Item2::~TST_Item2()
+  deque.removeFirst()
+  @enter - TST_Item2::~TST_Item2()
+   this->value() = 3
+  @exit - TST_Item2::~TST_Item2()
+ @exit - void test11()
+ @enter - void test12()
+  deque.addLast(item1)
+  deque.addLast(item2)
+  deque.addLast(item3)
+  deque.removeFirst()
+  iter.item()->value() = 1
+  iter.next()
+  @enter - TST_Item2::~TST_Item2()
+   this->value() = 1
+  @exit - TST_Item2::~TST_Item2()
+  deque.removeFirst()
+  iter.item()->value() = 2
+  iter.next()
+  @enter - TST_Item2::~TST_Item2()
+   this->value() = 2
+  @exit - TST_Item2::~TST_Item2()
+  deque.removeFirst()
+  iter.item()->value() = 3
+  iter.next()
+  @enter - TST_Item2::~TST_Item2()
+   this->value() = 3
+  @exit - TST_Item2::~TST_Item2()
+ @exit - void test12()
+ @enter - void test13()
+  deque->addLast(item1)
+  deque->addLast(item2)
+  deque->addLast(item3)
+  iter = deque->items()
+  delete deque
+  iter.items() = 1 2 3
+  iter = 0
+  @enter - TST_Item2::~TST_Item2()
+   this->value() = 1
+  @exit - TST_Item2::~TST_Item2()
+  @enter - TST_Item2::~TST_Item2()
+   this->value() = 2
+  @exit - TST_Item2::~TST_Item2()
+  @enter - TST_Item2::~TST_Item2()
+   this->value() = 3
+  @exit - TST_Item2::~TST_Item2()
+  iter.items() =
+ @exit - void test13()
+ @enter - void test14()
+  items.population() = 10
+  items.isEmpty() = 0
+  items.items() = 0 10 31 47 16 18 48 20 22 9
+  deque.population() = 10
+  deque.isEmpty() = 0
+  deque.items() = 9 22 20 48 18 16 47 31 10 0
+  deque.population() = 20
+  deque.isEmpty() = 0
+  deque.items() = 0 10 31 47 16 18 48 20 22 9 9 22 20 48 18 16 47 31 10 0
+ @exit - void test14()
+@exit - void test1()

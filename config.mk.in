@@ -1,0 +1,13 @@
+PACKAGE_NAME = @PACKAGE_NAME@
+PACKAGE_VERSION = @PACKAGE_VERSION@
+PACKAGE_MAJOR_VERSION = @PACKAGE_MAJOR_VERSION@
+PACKAGE_MINOR_VERSION = @PACKAGE_MINOR_VERSION@
+PACKAGE_PATCH_VERSION = @PACKAGE_PATCH_VERSION@
+
+prefix = @prefix@
+exec_prefix = @exec_prefix@
+
+bindir=@bindir@
+datadir=@datadir@
+includedir=@includedir@
+libdir=@libdir@

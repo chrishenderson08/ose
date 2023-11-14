@@ -1,0 +1,20 @@
+@enter - void test1()
+ @enter - void test2()
+  range1 = ()
+  range1.isNullRange() = 1
+  range1 =
+  range2 = (5)
+  range2.isNullRange() = 0
+  range2 = 0 1 2 3 4
+  range3 = (-5,10)
+  range3.isNullRange() = 0
+  range3 = -5 -4 -3 -2 -1 0 1 2 3 4
+  range3(backward) = 4 3 2 1 0 -1 -2 -3 -4 -5
+  range1.isSubRange(range1) = 1
+  range1.isSubRange(range2) = 1
+  range2.isSubRange(range1) = 0
+  range3.isSubRange(range2) = 0
+  range2.isSubRange(range3) = 1
+  range3.isSubRange(range3) = 1
+ @exit - void test2()
+@exit - void test1()

@@ -1,0 +1,9 @@
+sh sh
+lex cxx
+lex c
+rpcgen cxx
+rpcgen c
+yacc cxx
+yacc c
+cxx cxx
+c c

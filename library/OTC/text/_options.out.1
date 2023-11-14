@@ -1,0 +1,50 @@
+@enter - void test1()
+ @enter - void test2()
+  numOptions = 3
+  option 1 = program
+  option 2 = arg1
+  option 3 = arg2
+  all options = program arg1 arg2
+ @exit - void test2()
+ @enter - void test3()
+  numOptions = 3
+  option 1 = program
+  option 2 = arg1
+  option 3 = arg2
+  all options = program arg1 arg2
+ @exit - void test3()
+ @enter - void test4()
+  numOptions = 3
+  option 1 = program
+  option 2 = arg1-p1 arg1-p2
+  option 3 = arg2
+  all options = program arg1-p1 arg1-p2 arg2
+ @exit - void test4()
+ @enter - void test5()
+  numOptions = 0
+  all options =
+ @exit - void test5()
+ @enter - void test6()
+  numOptions = 3
+  option 1 = program
+  option 2 = arg1
+  option 3 = arg2
+  all options = program arg1 arg2
+ @exit - void test6()
+ @enter - void test7()
+  numOptions = 3
+  option 1 = program
+  option 2 = "arg1-p1 arg1-p2"
+  option 3 = arg2
+  all options = program "arg1-p1 arg1-p2" arg2
+ @exit - void test7()
+ @enter - void test8()
+  numOptions = 3
+  program
+  arg1
+  arg2
+  program
+  arg1
+  arg2
+ @exit - void test8()
+@exit - void test1()

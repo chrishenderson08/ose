@@ -1,0 +1,35 @@
+@enter - void test1()
+ @enter - void test2()
+  queue.isEmpty() = 1
+ @exit - void test2()
+ @enter - void test3()
+  queue.isEmpty() = 0
+  queue.head()/remove() = 0/0 1/1 2/2 3/3 4/4 5/5 6/6 7/7 8/8 9/9
+ @exit - void test3()
+ @enter - void test6()
+  queue.count() = 0
+  queue.count() = 10
+  queue.clear()
+  queue.count() = 10
+ @exit - void test6()
+ @enter - void test7()
+  queue.count() = 0
+  queue = 0 1 2 3 4 5 6 7 8 9
+  queue.count() = 10
+  queue.discard(4)
+  queue.count() = 6
+  queue.remove() = 4
+  queue.remove() = 5
+  queue.count() = 4
+  queue.discard(4)
+  queue.count() = 0
+ @exit - void test7()
+ @enter - void test8()
+  queue1.remove() = 0 1 2 3 4 5 6 7 8 9
+  queue2.remove() = 0 1 2 3 4 5 6 7 8 9
+ @exit - void test8()
+ @enter - void test9()
+  queue1.remove() = 0 1 2 3 4 5 6 7 8 9
+  queue2.remove() = 0 1 2 3 4 5 6 7 8 9
+ @exit - void test9()
+@exit - void test1()

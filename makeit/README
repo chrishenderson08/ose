@@ -1,0 +1,30 @@
+This package contains "makeit", a build environment targeted at developers
+using the C and C++ programming languages.
+
+Makeit uses the freely available and widely portable GNU make program.
+GNU make provides a range of extensions to standard make functionality far
+surpassing features available in commercial offerings. Makeit builds on
+this functionality to provide a library of predefined functionality which
+is included into your makefile and controlled through a limited number of
+variables. Your makefiles remain simple as all those rules you would
+otherwise have to write are out of sight. Further, all the variations
+implicit in supporting different compilers and host operating systems are
+also hidden, meaning not only will your makefile be simple, but it will be
+portable.
+
+With the introduction of version 8.0, makeit is being made available under
+a BSD style license. You may install makeit into a standard location and
+use it from there, or copy the package into a subdirectory of your own
+project and use it from there instead.
+
+Please note that version 8.0 of makeit was restructured substantially in
+comparison to the version supplied with version 7.0 of OSE. Various
+questionable features have been dropped for the sake of simplicitly and the
+naming conventions employed changed. Do not expect your existing makefiles
+to work without some changes being required.
+
+Any questions you may have should be directed to the "Help" web forum on
+the OSE web site at [http://ose.sourceforge.net]. Make it clear in your
+posts which version of this package you are using. You can find out exactly
+which version of this package you are using by looking in the "PACKAGE"
+file located in the same directory that this file resides.

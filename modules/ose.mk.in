@@ -1,0 +1,79 @@
+## Copyright 2003-2004 DUMPLETON SOFTWARE CONSULTING PTY LIMITED
+
+ifeq "$(OSE_ROOT)" ""
+override OSE_ROOT = @prefix@
+endif
+
+ifeq "$(OSE_VERSION)" ""
+override OSE_VERSION = @PACKAGE_NAME@-@PACKAGE_VERSION@
+endif
+
+ifeq "$(OSE_VARIANT)" ""
+override OSE_VARIANT = $(VARIANT)
+endif
+
+override OSE_INCDIR = $(OSE_ROOT)/include/$(OSE_VERSION)
+override OSE_LIBDIR = $(OSE_ROOT)/lib/$(OSE_VERSION)/$(MAKEIT_CONFIGURATION)
+
+override CPPFLAGS += -I$(OSE_INCDIR)
+
+override PLATFORM_OPTIONS += socket
+
+ifneq "$(filter with_threads,$(OSE_OPTIONS))" ""
+override CPPFLAGS += -DOSE_WITH_THREADS
+override PLATFORM_OPTIONS += pthread
+endif
+
+ifeq "$(LIBPRE)$(LIBEXT)" "lib.a"
+_ose_STATIC_LIBRARY := $(filter static_library,$(OSE_OPTIONS))
+endif
+
+ifneq "$(_ose_STATIC_LIBRARY)" ""
+
+ifneq "$(filter with_threads,$(OSE_OPTIONS))" ""
+ifneq "$(OSE_VARIANT)" ""
+override LDLIBS += \
+ $(OSE_LIBDIR)/$(LIBPRE)@PACKAGE_NAME@_mt_$(OSE_VARIANT)$(LIBEXT)
+else
+override LDLIBS += $(OSE_LIBDIR)/$(LIBPRE)@PACKAGE_NAME@_mt$(LIBEXT)
+endif
+else
+ifneq "$(OSE_VARIANT)" ""
+override LDLIBS += \
+ $(OSE_LIBDIR)/$(LIBPRE)@PACKAGE_NAME@_$(OSE_VARIANT)$(LIBEXT)
+else
+override LDLIBS += $(OSE_LIBDIR)/$(LIBPRE)@PACKAGE_NAME@$(LIBEXT)
+endif
+endif
+
+else
+
+override LDFLAGS += -L$(OSE_LIBDIR)
+
+override PICPATH += $(OSE_LIBDIR)
+
+ifneq "$(filter with_threads,$(OSE_OPTIONS))" ""
+ifneq "$(OSE_VARIANT)" ""
+override LDLIBS += -l@PACKAGE_NAME@_mt_$(OSE_VARIANT)
+else
+override LDLIBS += -l@PACKAGE_NAME@_mt
+endif
+else
+ifneq "$(OSE_VARIANT)" ""
+override LDLIBS += -l@PACKAGE_NAME@_$(OSE_VARIANT)
+else
+override LDLIBS += -l@PACKAGE_NAME@
+endif
+endif
+
+endif
+
+ifneq "$(MAKEIT_PLATFORM)" "$(COMPILER_PLATFORM)"
+override CPPFLAGS += -DOSE_TARGET_PLATFORM=$(COMPILER_PLATFORM)
+endif
+
+ifneq "$(filter vc%,$(MAKEIT_CONFIGURATION))" ""
+ifneq "$(filter $(VARIANT),$(COMPILER_PIC_VARIANTS))" ""
+override CPPFLAGS += -DOSE_DLL_IMPORT
+endif
+endif

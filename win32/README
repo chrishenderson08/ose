@@ -1,0 +1,39 @@
+The makefiles in this directory are specifically for Microsoft Visual C++.
+
+The commands listed below need to be run from a DOS command window. Note
+that you must have the Win32 POSIX thread library if you want to build in
+thread support to the OSE C++ class library. The Win32 POSIX thread library
+can be obtained from:
+
+  http://sources.redhat.com/pthreads-win32
+
+To build "Release" DLL and import library without thread support built in
+to the OSE C++ class library, run:
+
+  nmake -f release.mk clean
+  nmake -f release.mk ose_opt.dll
+
+To build "Debug" library without thread support built in to the OSE C++
+class library, run:
+
+  nmake -f debug.mk clean
+  nmake -f debug.mk ose_dbg.lib
+
+To build "Release" DLL and import library with thread support built in to
+the OSE C++ class library, run:
+
+  nmake -f release-mt.mk clean
+  nmake -f release-mt.mk ose_mt_opt.dll
+
+To build "Debug" library with thread support built in to the OSE C++ class
+library, run:
+
+  nmake -f debug-mt.mk clean
+  nmake -f debug-mt.mk ose_mt_dbg.lib
+
+All the above should work for Visual C++ 6.0 onwards. If you have Visual
+C++ 7.1 or onwards, you can build an extended version of the library which
+incorporates the latest high level messaging system APIs. In this case
+modify the appropriate makefile and uncomment the line:
+
+  OBJECTS = $(OBJECTS1) $(OBJECTS2) $(OBJECTS3)

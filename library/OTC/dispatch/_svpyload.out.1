@@ -1,0 +1,770 @@
+@enter - void test1()
+ @enter - void test2()
+  node=
+  name=name
+  value=
+  
+  
+  
+ @exit - void test2()
+ @enter - void test3()
+  
+  node=scalar
+  name=name
+  value=value
+  <scalar name="name" type="xsd:string">value</scalar>
+  
+  <scalar name="name" type="xsd:string">value</scalar>
+  
+ @exit - void test3()
+ @enter - void test4()
+  node=array
+  name=name
+  value=
+  
+  <array name="name">
+  <scalar type="xsd:string">item0</scalar>
+  <scalar type="xsd:string">item1</scalar>
+  <scalar type="xsd:string">item2</scalar>
+  </array>
+  
+  <scalar type="xsd:string">item0</scalar>
+  
+  <scalar type="xsd:string">item2</scalar>
+  
+ @exit - void test4()
+ @enter - void test5()
+  <array>
+  <scalar type="xsd:string" index="0">item0</scalar>
+  <scalar type="xsd:string" index="2">item2</scalar>
+  <scalar type="xsd:string" index="4">item4</scalar>
+  </array>
+  
+  <scalar type="xsd:string" index="0">item0</scalar>
+  
+  <scalar type="xsd:string" index="2">item2</scalar>
+  
+ @exit - void test5()
+ @enter - void test6()
+  index=0
+  
+  <scalar type="xsd:string" index="0">item0</scalar>
+  
+  index=2
+  
+  <scalar type="xsd:string" index="2">item2</scalar>
+  
+  index=4
+  
+  <scalar type="xsd:string" index="4">item4</scalar>
+  
+ @exit - void test6()
+ @enter - void test7()
+  node=index
+  name=
+  value=
+  
+  <index>
+  <scalar name="one" type="xsd:string">text1</scalar>
+  <scalar name="two" type="xsd:string">text2</scalar>
+  <scalar name="six" type="xsd:string">text3</scalar>
+  </index>
+  
+  <scalar name="one" type="xsd:string">text1</scalar>
+  
+ @exit - void test7()
+ @enter - void test8()
+  <index>
+  <scalar name="one" type="xsd:string">text1</scalar>
+  <scalar name="two" type="xsd:string">text2</scalar>
+  <array name="six">
+  <scalar type="xsd:string">text3</scalar>
+  <scalar type="xsd:string">text4</scalar>
+  </array>
+  <index name="ten">
+  <scalar name="one" type="xsd:string">text5</scalar>
+  <scalar name="two" type="xsd:string">text6</scalar>
+  <array name="six">
+  <scalar type="xsd:string">text7</scalar>
+  <scalar type="xsd:string">text8</scalar>
+  <scalar type="xsd:string">text9</scalar>
+  </array>
+  </index>
+  </index>
+  
+ @exit - void test8()
+ @enter - void test9()
+  <index>
+  <scalar name="one" type="xsd:string" id="1">text1</scalar>
+  <scalar name="two" type="xsd:string">text2</scalar>
+  </index>
+  
+ @exit - void test9()
+ @enter - void test10()
+  <array>
+  <scalar type="xsd:string" data="text &amp;&lt;&gt;
+  	&apos;&quot; text">text &amp;&lt;&gt;
+  	&apos;&quot; text</scalar>
+  </array>
+  
+ @exit - void test10()
+ @enter - void test11()
+  <scalar type="xsd:string">text</scalar>
+  
+  <array>
+  <scalar type="xsd:string">text</scalar>
+  </array>
+  
+  <index>
+  <scalar name="one" type="xsd:string">text</scalar>
+  </index>
+  
+  <array>
+  <scalar type="xsd:string">text</scalar>
+  </array>
+  
+ @exit - void test11()
+ @enter - void test12()
+  type=xsd:int
+  
+  <scalar type="xsd:int">1</scalar>
+  
+  type=xsd:int
+  
+  <array>
+  <scalar type="xsd:int">-1</scalar>
+  </array>
+  
+  type=xsd:double
+  
+  <index>
+  <scalar name="one" type="xsd:double">1.5</scalar>
+  </index>
+  
+  type=xsd:double
+  
+  <array>
+  <scalar type="xsd:double">-1.5</scalar>
+  </array>
+  
+ @exit - void test12()
+ @enter - void test13()
+  <index>
+  <scalar name="one" type="xsd:string">text1</scalar>
+  <array name="two">
+  <scalar type="xsd:string">text2</scalar>
+  <scalar type="xsd:string">text3</scalar>
+  </array>
+  <index name="six">
+  <scalar name="one" type="xsd:string">text4</scalar>
+  <scalar name="two" type="xsd:string">text5</scalar>
+  </index>
+  </index>
+  
+  <index name="six">
+  <scalar name="one" type="xsd:string">text4</scalar>
+  <scalar name="two" type="xsd:string">text5</scalar>
+  </index>
+  
+ @exit - void test13()
+ @enter - void test14()
+  <index>
+  <scalar name="one" type="xsd:string">text1</scalar>
+  <array name="two">
+  <scalar type="xsd:string">text2</scalar>
+  <scalar type="xsd:string">text3</scalar>
+  </array>
+  <index name="six">
+  <scalar name="one" type="xsd:string">text4</scalar>
+  <scalar name="two" type="xsd:string">text5</scalar>
+  </index>
+  </index>
+  
+  <index>
+  <scalar name="one" type="xsd:string">text1</scalar>
+  <array name="two">
+  <scalar type="xsd:string">text2</scalar>
+  <scalar type="xsd:string">text3</scalar>
+  </array>
+  <index name="six">
+  <scalar name="one" type="xsd:string">text4</scalar>
+  <scalar name="two" type="xsd:string">text5</scalar>
+  </index>
+  <index name="ten">
+  <scalar name="one" type="xsd:string">text1</scalar>
+  <array name="two">
+  <scalar type="xsd:string">text2</scalar>
+  <scalar type="xsd:string">text3</scalar>
+  </array>
+  <index name="six">
+  <scalar name="one" type="xsd:string">text4</scalar>
+  <scalar name="two" type="xsd:string">text5</scalar>
+  </index>
+  </index>
+  </index>
+  
+  <index>
+  <scalar name="one" type="xsd:string">text4</scalar>
+  <scalar name="two" type="xsd:string">text5</scalar>
+  </index>
+  
+  <index>
+  <scalar name="one" type="xsd:string">text4</scalar>
+  <scalar name="two" type="xsd:string">text5</scalar>
+  </index>
+  
+  <invalid></invalid>
+  
+  <invalid></invalid>
+  
+  <index>
+  <invalid name="one"></invalid>
+  </index>
+  
+ @exit - void test14()
+ @enter - void test15()
+  <index>
+  <scalar name="one" type="xsd:string" id="1">text1</scalar>
+  <array name="two" id="2">
+  <scalar type="xsd:string" id="1">text2</scalar>
+  <scalar type="xsd:string" id="2">text3</scalar>
+  </array>
+  <index name="six" id="6">
+  <scalar name="one" type="xsd:string" id="1">text4</scalar>
+  <scalar name="two" type="xsd:string" id="2">text5</scalar>
+  </index>
+  </index>
+  
+  <array name="two" id="2">
+  <scalar type="xsd:string" id="1">text2</scalar>
+  <scalar type="xsd:string" id="2">text3</scalar>
+  </array>
+  
+  <index name="six" id="6">
+  <scalar name="one" type="xsd:string" id="1">text4</scalar>
+  <scalar name="two" type="xsd:string" id="2">text5</scalar>
+  </index>
+  
+  <scalar name="two" type="xsd:string" id="2">text5</scalar>
+  
+ @exit - void test15()
+ @enter - void test16()
+  <index>
+  <scalar name="false" type="xsd:boolean">false</scalar>
+  <scalar name="true" type="xsd:boolean">true</scalar>
+  <scalar name="char" type="xsd:byte">127</scalar>
+  <scalar name="short" type="xsd:short">32767</scalar>
+  <scalar name="int" type="xsd:int">2147483647</scalar>
+  <scalar name="long" type="xsd:int">2147483647</scalar>
+  <scalar name="-char" type="xsd:byte">-1</scalar>
+  <scalar name="-short" type="xsd:short">-1</scalar>
+  <scalar name="-int" type="xsd:int">-1</scalar>
+  <scalar name="-long" type="xsd:int">-1</scalar>
+  <scalar name="u_char" type="xsd:unsignedByte">255</scalar>
+  <scalar name="u_short" type="xsd:unsignedShort">65535</scalar>
+  <scalar name="u_int" type="xsd:unsignedInt">4294967295</scalar>
+  <scalar name="u_long" type="xsd:unsignedInt">4294967295</scalar>
+  <scalar name="float" type="xsd:float">1.5</scalar>
+  <scalar name="double" type="xsd:double">1.5</scalar>
+  <array name="bool[]">
+  <scalar type="xsd:boolean">false</scalar>
+  <scalar type="xsd:boolean">true</scalar>
+  </array>
+  <array name="char[]">
+  <scalar type="xsd:byte">127</scalar>
+  <scalar type="xsd:byte">-1</scalar>
+  <scalar type="xsd:unsignedByte">255</scalar>
+  </array>
+  <array name="short[]">
+  <scalar type="xsd:short">32767</scalar>
+  <scalar type="xsd:short">-1</scalar>
+  <scalar type="xsd:unsignedShort">65535</scalar>
+  </array>
+  <array name="int[]">
+  <scalar type="xsd:int">2147483647</scalar>
+  <scalar type="xsd:int">-1</scalar>
+  <scalar type="xsd:unsignedInt">4294967295</scalar>
+  </array>
+  <array name="long[]">
+  <scalar type="xsd:int">2147483647</scalar>
+  <scalar type="xsd:int">-1</scalar>
+  <scalar type="xsd:unsignedInt">4294967295</scalar>
+  </array>
+  <array name="float[]">
+  <scalar type="xsd:float">1.5</scalar>
+  <scalar type="xsd:float">-1.5</scalar>
+  <scalar type="xsd:float">Inf</scalar>
+  <scalar type="xsd:float">-Inf</scalar>
+  <scalar type="xsd:float">0</scalar>
+  <scalar type="xsd:float">0</scalar>
+  </array>
+  <array name="double[]">
+  <scalar type="xsd:double">1.5</scalar>
+  <scalar type="xsd:double">-1.5</scalar>
+  <scalar type="xsd:double">1e+234</scalar>
+  <scalar type="xsd:double">-1e+234</scalar>
+  <scalar type="xsd:double">1e-234</scalar>
+  <scalar type="xsd:double">-1e-234</scalar>
+  </array>
+  <array name="binary">
+  <scalar type="xsd:base64Binary">MDEyMzQ1Njc4OQ==
+  </scalar>
+  <scalar type="xsd:base64Binary">YUFiQmNDZERlRQ==
+  </scalar>
+  <scalar type="xsd:base64Binary">IAkNCgsg
+  </scalar>
+  <scalar type="xsd:base64Binary">AQI=
+  </scalar>
+  </array>
+  <scalar name="date" type="xsd:date">2001-01-01</scalar>
+  <scalar name="dateTime" type="xsd:dateTime">2001-01-01T01:01:01</scalar>
+  <scalar name="duration" type="xsd:duration">-P180DT22H58M59S</scalar>
+  </index>
+  
+ @exit - void test16()
+ @enter - void test17()
+  <index>
+  <invalid name="one"></invalid>
+  </index>
+  
+ @exit - void test17()
+ @enter - void test18()
+  <index>
+  <scalar name="one"></scalar>
+  <array name="two">
+  <scalar></scalar>
+  <scalar></scalar>
+  <scalar></scalar>
+  </array>
+  </index>
+  
+ @exit - void test18()
+ @enter - void test19()
+  <index>
+  <index name="1">
+  <scalar name="1" type="xsd:string">1.1</scalar>
+  <scalar name="2" type="xsd:string">1.2</scalar>
+  <scalar name="3" type="xsd:string">1.3</scalar>
+  </index>
+  <index name="2">
+  <scalar name="1" type="xsd:string">2.1</scalar>
+  </index>
+  </index>
+  
+ @exit - void test19()
+ @enter - void test20()
+  <index>
+  <scalar name="null"></scalar>
+  <scalar name="string0" type="xsd:string"></scalar>
+  <scalar name="string1" type="xsd:string">X</scalar>
+  <scalar name="false" type="xsd:boolean">false</scalar>
+  <scalar name="true" type="xsd:boolean">true</scalar>
+  <scalar name="char" type="xsd:byte">100</scalar>
+  <scalar name="short" type="xsd:short">10000</scalar>
+  <scalar name="int" type="xsd:int">1000000</scalar>
+  <scalar name="float" type="xsd:float">1000000</scalar>
+  <scalar name="double" type="xsd:double">1000000</scalar>
+  </index>
+  
+  node=null
+  status=1
+  string=
+  node=string0
+  status=1
+  string=
+  node=string1
+  status=1
+  string=X
+  node=false
+  status=1
+  string=false
+  node=true
+  status=1
+  string=true
+  node=char
+  status=1
+  string=100
+  node=short
+  status=1
+  string=10000
+  node=int
+  status=1
+  string=1000000
+  node=float
+  status=1
+  string=1000000
+  node=double
+  status=1
+  string=1000000
+  
+  node=null
+  status=0
+  node=string0
+  status=0
+  node=string1
+  status=0
+  node=false
+  status=1
+  bool=0
+  node=true
+  status=1
+  bool=1
+  node=char
+  status=1
+  bool=1
+  node=short
+  status=1
+  bool=1
+  node=int
+  status=1
+  bool=1
+  node=float
+  status=1
+  bool=1
+  node=double
+  status=1
+  bool=1
+  
+  node=null
+  status=0
+  node=string0
+  status=0
+  node=string1
+  status=0
+  node=false
+  status=1
+  char=0
+  node=true
+  status=1
+  char=1
+  node=char
+  status=1
+  char=100
+  node=short
+  status=0
+  node=int
+  status=0
+  node=float
+  status=0
+  node=double
+  status=0
+  
+  node=null
+  status=0
+  node=string0
+  status=0
+  node=string1
+  status=0
+  node=false
+  status=1
+  short=0
+  node=true
+  status=1
+  short=1
+  node=char
+  status=1
+  short=100
+  node=short
+  status=1
+  short=10000
+  node=int
+  status=0
+  node=float
+  status=0
+  node=double
+  status=0
+  
+  node=null
+  status=0
+  node=string0
+  status=0
+  node=string1
+  status=0
+  node=false
+  status=1
+  int=0
+  node=true
+  status=1
+  int=1
+  node=char
+  status=1
+  int=100
+  node=short
+  status=1
+  int=10000
+  node=int
+  status=1
+  int=1000000
+  node=float
+  status=1
+  int=1000000
+  node=double
+  status=1
+  int=1000000
+  
+  node=null
+  status=0
+  node=string0
+  status=0
+  node=string1
+  status=0
+  node=false
+  status=1
+  long=0
+  node=true
+  status=1
+  long=1
+  node=char
+  status=1
+  long=100
+  node=short
+  status=1
+  long=10000
+  node=int
+  status=1
+  long=1000000
+  node=float
+  status=1
+  long=1000000
+  node=double
+  status=1
+  long=1000000
+  
+  node=null
+  status=0
+  node=string0
+  status=0
+  node=string1
+  status=0
+  node=false
+  status=1
+  float=0
+  node=true
+  status=1
+  float=1
+  node=char
+  status=1
+  float=100
+  node=short
+  status=1
+  float=10000
+  node=int
+  status=1
+  float=1e+06
+  node=float
+  status=1
+  float=1e+06
+  node=double
+  status=1
+  float=1e+06
+  
+  node=null
+  status=0
+  node=string0
+  status=0
+  node=string1
+  status=0
+  node=false
+  status=1
+  double=0
+  node=true
+  status=1
+  double=1
+  node=char
+  status=1
+  double=100
+  node=short
+  status=1
+  double=10000
+  node=int
+  status=1
+  double=1e+06
+  node=float
+  status=1
+  double=1e+06
+  node=double
+  status=1
+  double=1e+06
+  
+  <index>
+  <scalar name="null"></scalar>
+  <scalar name="string0" type="xsd:string"></scalar>
+  <scalar name="string1" type="xsd:string">X</scalar>
+  <scalar name="false" type="xsd:boolean">false</scalar>
+  <scalar name="true" type="xsd:boolean">true</scalar>
+  <scalar name="char" type="xsd:byte">100</scalar>
+  <scalar name="short" type="xsd:short">10000</scalar>
+  <scalar name="int" type="xsd:int">1000000</scalar>
+  <scalar name="float" type="xsd:float">1000000</scalar>
+  <scalar name="double" type="xsd:double">1000000</scalar>
+  <scalar name="name" type="xsd:string">value</scalar>
+  <scalar name="count" type="xsd:int">100</scalar>
+  <scalar name="average" type="xsd:double">49.9</scalar>
+  </index>
+  
+  name=value
+  count=100
+  average=49.9
+ @exit - void test20()
+ @enter - void test21()
+  <array>
+  <scalar type="xsd:int">1</scalar>
+  <scalar type="xsd:int">2</scalar>
+  <scalar type="xsd:int">3</scalar>
+  <scalar type="xsd:int">4</scalar>
+  <scalar type="xsd:int">5</scalar>
+  </array>
+  
+  1
+  2
+  3
+  4
+  5
+  1
+  2
+  3
+  4
+  5
+  <array>
+  <scalar type="xsd:int">1</scalar>
+  <scalar type="xsd:int">2</scalar>
+  <scalar type="xsd:int">3</scalar>
+  <scalar type="xsd:int">4</scalar>
+  <scalar type="xsd:int">5</scalar>
+  <array>
+  <scalar type="xsd:int">1</scalar>
+  <scalar type="xsd:int">2</scalar>
+  <scalar type="xsd:int">3</scalar>
+  <scalar type="xsd:int">4</scalar>
+  <scalar type="xsd:int">5</scalar>
+  </array>
+  </array>
+  
+ @exit - void test21()
+ @enter - void test22()
+  <index>
+  <scalar name="one" type="xsd:int">1</scalar>
+  <scalar name="two" type="xsd:int">2</scalar>
+  <scalar name="three" type="xsd:int">3</scalar>
+  <scalar name="four" type="xsd:int">4</scalar>
+  <scalar name="five" type="xsd:int">5</scalar>
+  </index>
+  
+  one 1
+  two 2
+  three 3
+  four 4
+  five 5
+  five 5
+  four 4
+  one 1
+  three 3
+  two 2
+ @exit - void test22()
+ @enter - void test23()
+  <index>
+  <scalar name="date" type="xsd:date">2001-01-01</scalar>
+  <scalar name="dateTime" type="xsd:dateTime">2001-01-01T01:01:01</scalar>
+  <scalar name="duration" type="xsd:duration">P0DT1H1M1S</scalar>
+  </index>
+  
+  date=2001-01-01
+  dateTime=2001-01-01T01:01:01
+  duration=P0DT1H1M1S
+ @exit - void test23()
+ @enter - void test24()
+  <scalar></scalar>
+  
+  <array></array>
+  
+  <index></index>
+  
+  <index>
+  <array name="key-iterator"></array>
+  <array name="item-iterator"></array>
+  <index name="pair-iterator"></index>
+  </index>
+  
+  <index>
+  <array name="key-iterator">
+  <scalar type="xsd:string">one</scalar>
+  <scalar type="xsd:string">two</scalar>
+  <scalar type="xsd:string">three</scalar>
+  <scalar type="xsd:string">four</scalar>
+  <scalar type="xsd:string">five</scalar>
+  </array>
+  <array name="item-iterator">
+  <scalar type="xsd:int">1</scalar>
+  <scalar type="xsd:int">2</scalar>
+  <scalar type="xsd:int">3</scalar>
+  <scalar type="xsd:int">4</scalar>
+  <scalar type="xsd:int">5</scalar>
+  </array>
+  <index name="pair-iterator">
+  <scalar name="one" type="xsd:int">1</scalar>
+  <scalar name="two" type="xsd:int">2</scalar>
+  <scalar name="three" type="xsd:int">3</scalar>
+  <scalar name="four" type="xsd:int">4</scalar>
+  <scalar name="five" type="xsd:int">5</scalar>
+  </index>
+  </index>
+  
+ @exit - void test24()
+ @enter - void test25()
+  
+  <index>
+  <scalar name="1.1" type="xsd:string">1.1</scalar>
+  <scalar name="1.2" type="xsd:string">1.2</scalar>
+  <scalar name="1.3" type="xsd:string">1.3</scalar>
+  </index>
+  
+  <index>
+  <scalar name="1.1" type="xsd:string">1.1</scalar>
+  <scalar name="1.2" type="xsd:string">1.2</scalar>
+  <scalar name="1.3" type="xsd:string">1.3</scalar>
+  <index name="1">
+  <index name="0">
+  <scalar name="1.1" type="xsd:string">1.1</scalar>
+  <scalar name="1.2" type="xsd:string">1.2</scalar>
+  <scalar name="1.3" type="xsd:string">1.3</scalar>
+  </index>
+  </index>
+  </index>
+  
+  <index>
+  <index name="1">
+  <scalar name="1" type="xsd:string">1.1</scalar>
+  <scalar name="2" type="xsd:string">1.2</scalar>
+  <scalar name="3" type="xsd:string">1.3</scalar>
+  <index name="0">
+  <scalar name="1" type="xsd:string">1.1</scalar>
+  <scalar name="2" type="xsd:string">1.2</scalar>
+  <scalar name="3" type="xsd:string">1.3</scalar>
+  </index>
+  </index>
+  </index>
+  
+ @exit - void test25()
+ @enter - void test26()
+  <array name="name">
+  <scalar type="xsd:string">item0</scalar>
+  <scalar type="xsd:string">item1</scalar>
+  <scalar type="xsd:string">item2</scalar>
+  </array>
+  
+  item0
+  item1
+  item2
+ @exit - void test26()
+ @enter - void test27()
+  <index name="name">
+  <scalar name="0" type="xsd:string">item0</scalar>
+  <scalar name="1" type="xsd:string">item1</scalar>
+  <scalar name="2" type="xsd:string">item2</scalar>
+  </index>
+  
+  0 - item0
+  1 - item1
+  2 - item2
+ @exit - void test27()
+@exit - void test1()

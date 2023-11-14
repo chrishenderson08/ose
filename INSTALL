@@ -1,0 +1,113 @@
+Quick Installation Guide
+------------------------
+
+This file contains a quick guide to what needs to be done to configure and
+install the C++ class libraries provided with OSE.
+
+If you want to install the Python wrappers and the associated loadable
+Python object module based on the C++ class library provided with OSE, use
+the standard Python distutils "setup.py" file instead. Before you do this,
+you will however at least need to run the "configure" script first as
+detailed below. See additional comments included in the "setup.py" file.
+
+If you want to build the C++ class libraries provided with OSE using
+Microsoft Visual C++ but want to use native Win32 makefiles, move to the
+"win32" directory and see the "README" in that directory.
+
+Any questions you may have should be directed to the "Help" web forum on
+the OSE web site at [http://ose.sourceforge.net]. Make it clear in your
+posts which version of this package you are using. You can find out exactly
+which version of this package you are using by looking in the "PACKAGE"
+file located in the same directory that this file resides.
+
+Package Prerequsites
+--------------------
+
+You will need to have a moderately recent version of GNU make. Version 3.79
+or later of GNU make is known to work, but version 3.78 should also work.
+Anything prior to version 3.78 lacks support for certain features of GNU
+make which are used by the build environment.
+
+Where instructions are provided and they require you to run GNU make, it
+will give the command to run as "make". If GNU make is called something
+different on your system, such as "gmake" or "gnumake", you will need to
+substitute that in place of "make" when executing the command.
+
+If you are on a Win32 system, you must have the Cygwin package installed,
+including the developer tools, and be performing the installation of this
+package from within a Cygwin terminal window. The Cygwin package can be
+obtained from [http://www.cygwin.com].
+
+Installation Steps
+------------------
+
+1. Configure and install the "makeit" package which can be found in the
+"makeit" subdirectory. If you are going to use your own build environment
+to make use of the C++ class libraries after installation, you do not
+actually need to install "makeit", but you must at least configure it.
+
+2. If you have already configured and installed this package once before in
+this directory and are now preparing to install it again but for a
+different host platform, or into a different location, or if you have
+applied any patches, ensure that you first run the command:
+
+  make distclean
+
+3. Configuration of the package is carried out by running a configuration
+script created by the GNU autoconf system. This is done by running the
+command:
+
+  sh ./configure
+
+The default makefile will install files into "/usr/local/include" and
+"/usr/local/lib". You can override where files are installed by specifying
+the "--prefix" option to the "configure" script. For example, to install
+the package under the directory "/usr/local/ose" instead of "/usr/local",
+run the command:
+
+  sh ./configure --prefix /usr/local/ose
+
+4. To build the C++ class libraries run the command:
+
+  make
+
+If you want to include support for threads, you should instead run:
+
+  make OSE_OPTIONS=with_threads
+  
+Note that only use of the POSIX thread library is now supported. Also be
+aware that the non threaded and threaded libraries are named differently,
+so both variants can be installed if desired.
+
+5. To install the C++ class libraries and header files run the command:
+
+  make install
+
+If you compiled in support for threads, you should instead run:
+
+  make OSE_OPTIONS=with_threads install
+
+You must have the required permissions to install software into the target
+location. If you don't, the installation phase would need to be done as
+"root" or as some other privileged user.
+
+If you are going to build and install another variant of the library which
+does or doesn't include threading, or which is built with a different
+compiler, you need to cleanup the results of the first build by running:
+
+  make clean
+
+6. If you are going to use "makeit" for your build environment and use it
+to access the install C++ class libraries, run the command:
+
+  makeit install-modules
+
+The newly installed "makeit" command must be in your PATH when you run
+this command, else you should specify the full pathname to the "makeit"
+command as appropriate.
+
+When using the "ose" module for "makeit", if you want to access the version
+of the library which includes support for threads, your makefile must include
+the setting:
+
+  OSE_OPTIONS = with_threads

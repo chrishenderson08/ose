@@ -1,0 +1,24 @@
+#ifndef OSE_VERSION_H
+#define OSE_VERSION_H
+
+/* ------------------------------------------------------------------------- */
+
+/* Force this header into dependencies. */
+extern int OSE_DEPENDENCY_MARKER;
+
+/* ------------------------------------------------------------------------- */
+
+/* Library release information. */
+
+#define OSE_RELEASE_NAME "@PACKAGE_VERSION@"
+#define OSE_RELEASE_NUMBER "@PACKAGE_MAJOR_VERSION@@PACKAGE_MINOR_VERSION@@PACKAGE_PATCH_VERSION@"
+
+#define OSE_LIBRARY_RELEASE @PACKAGE_MAJOR_VERSION@@PACKAGE_MINOR_VERSION@@PACKAGE_PATCH_VERSION@
+
+#define OSE_MAJOR_RELEASE @PACKAGE_MAJOR_VERSION@
+#define OSE_MINOR_RELEASE @PACKAGE_MINOR_VERSION@
+#define OSE_MAINTENANCE_RELEASE @PACKAGE_PATCH_VERSION@
+
+/* ------------------------------------------------------------------------- */
+
+#endif /* OSE_VERSION_H */

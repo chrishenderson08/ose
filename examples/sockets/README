@@ -1,0 +1,78 @@
+Description of programs are as follows:
+
+  read-client hostname port
+
+    Writes to stdout any data received from socket.
+
+  write-client hostname port
+
+    Writes to stdout any data received from socket.
+    Once a second writes date/time out onto socket.
+
+  daytime-server port
+
+    Writes date/time onto socket and closes socket.
+    Same functionality as UNIX daytime service
+    except perhaps that it will close socket after
+    the value has been written.
+
+  echo-server port
+
+    Writes back onto socket any data it receives.
+    Same functionality as UNIX echo service.
+
+  chargen-server port
+
+    Writes data continuously onto the socket.
+    Same functionality as UNIX chargen service.
+
+    Unlike other examples, the chargen-server
+    implements a scheme to stop sending data when
+    it is detected that the socket connection is
+    full and a write would normally block. Sockets
+    are initialised as non blocking so program
+    would keep running, but all the data being
+    written would queue up in the process and
+    blow out the size of the process. Congestion
+    is therefore monitored and sending of data
+    is stopped when the client isn't reading it
+    quick enough.
+
+Examples for running the programs are as follows:
+
+  read-client localhost 13
+
+    Will connect to UNIX daytime service.
+
+  daytime-server 22222
+  read-client localhost localhost 22222
+
+    Same but use our version of UNIX daytime service.
+
+  write-client localhost 7
+
+    Connects to UNIX echo service.
+
+  echo-server 22222
+  write-client localhost 22222
+
+    Same but use our version of UNIX echo service.
+
+  read-client localhost 19
+
+    Will connect to UNIX chargen service.
+    Produces lots of output so CTRL-C it quickly.
+
+  chargen-server 22222
+  read-client localhost 22222
+
+    Same but use our version of UNIX chargen service.
+    Use CTRL-Z to suspend the client and use ps or top
+    program to see that server has stopped doing
+    anything.
+
+All process respond to CTRL-C.
+
+Note that if a client fails to connect, it will exit immediately.
+
+No disagnostics are output if an invalid port is  provided to servers.

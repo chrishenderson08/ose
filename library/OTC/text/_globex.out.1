@@ -1,0 +1,18 @@
+@enter - void test1()
+ @enter - void test2()
+  expr.pattern() = one
+  expr.isValid() = 1
+  expr.match("") = 0
+  expr.match("one") = 1
+  expr.match("two") = 0
+ @exit - void test2()
+ @enter - void test3()
+  expr.pattern() = *.cc
+  expr.isValid() = 1
+  expr.match("") = 0
+  expr.match(".ccc") = 0
+  expr.match(".cc") = 1
+  expr.match("one.cc") = 1
+  expr.match("two.cc") = 1
+ @exit - void test3()
+@exit - void test1()

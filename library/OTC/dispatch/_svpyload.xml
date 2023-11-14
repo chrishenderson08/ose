@@ -1,0 +1,54 @@
+<index>
+<index name="0">
+<scalar name="1"></scalar>
+<scalar name="2">text</scalar>
+<array name="3">
+<scalar index="1">text1</scalar>
+<scalar index='2'>text2</scalar>
+<scalar index="3">text3</scalar>
+<array index="4">
+<scalar>text1</scalar>
+<scalar>text2</scalar>
+<scalar>text3</scalar>
+</array>
+<index name="4">
+<scalar name="1"></scalar>
+<scalar name="2">text</scalar>
+<array name="3">
+<scalar>text1&amp;&lt;&gt;&apos;&quot;text1</scalar>
+<scalar>text2&#116;&#101;&#120;&#116;&#50;text2</scalar>
+<scalar>text3&#x74;&#x65;&#x78;&#x74;&#x33;text3</scalar>
+<scalar>text4&#x2a;&#x2B;&#xff;&#xfF;&#xFF;text4</scalar>
+<scalar>text5&#x20;&#xD;&#xA;&#x9;text5</scalar>
+<scalar>v>mxio>&lt;>ja>c"nku&lt;zg&lt;>bqtwde&lt;hsyrlf>p</scalar>
+</array>
+<array name="4">
+<scalar type="xsd:base64Binary">
+MDEyMzQ1Njc4OQ==
+</scalar>
+<scalar type="xsd:base64Binary">
+YUFiQmNDZERlRQ==
+</scalar>
+<scalar type="xsd:base64Binary">
+IAkNCgsg
+</scalar>
+<scalar type="xsd:base64Binary">
+AQI=
+</scalar>
+<scalar type="xsd:base64Binary">
+R0lGODlhFgASAJEAAP/////OnM7O/wAAACH5BAEAAAAALAAAAAAWABIAAAJAhI+py40zDIzujEDBzW0n74AaFGChqZUYylyYq7ILXJJ1BU95l6r23RrRYhyL5jiJAT/Ink8WTPoqHx31im0UAAA7
+</scalar>
+</array>
+</index>
+</array>
+</index>
+<scalar name="5"/>
+<array name="6"/>
+<index name="7"/>
+<array name="8">
+<scalar type="xsd:string" />
+<scalar/>
+<array/>
+<index/>
+</array>
+</index>

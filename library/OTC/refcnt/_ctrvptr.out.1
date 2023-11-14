@@ -1,0 +1,141 @@
+@enter - void test1()
+ @enter - void test2()
+  ptr1.numRefs() = 0
+  ptr1.item() = 0
+  ptr1 = 0
+  ptr1 = 0
+  ptr1.numRefs() = 0
+  ptr1.item() = 0
+  ptr1 = 0
+  ptr1 = ptr1
+  ptr1.numRefs() = 0
+  ptr1.item() = 0
+  ptr1 = 0
+  ptr2.numRefs() = 0
+  ptr2.item() = 0
+  ptr2 = 0
+  ptr1 = ptr2
+  ptr1.numRefs() = 0
+  ptr1.item() = 0
+  ptr1 = 0
+  ptr2.numRefs() = 0
+  ptr2.item() = 0
+  ptr2 = 0
+ @exit - void test2()
+ @enter - void test3()
+  ptr1 = new TST_Item1[1]
+  @enter - TST_Item1::TST_Item1()
+   this->value() = 0
+  @exit - TST_Item1::TST_Item1()
+  ptr1.numRefs() = 1
+  !ptr1 = 0
+  ptr1.item()[0].value() = 0
+  ptr1[0].value() = 0
+  ptr1 = 0
+  @enter - TST_Item1::~TST_Item1()
+   this->value() = 0
+  @exit - TST_Item1::~TST_Item1()
+  ptr1.numRefs() = 0
+  ptr1.item() = 0
+  ptr1 = 0
+ @exit - void test3()
+ @enter - void test4()
+  ptr1 = new TST_Item1[1]
+  @enter - TST_Item1::TST_Item1()
+   this->value() = 1
+  @exit - TST_Item1::TST_Item1()
+  ptr1.numRefs() = 1
+  !ptr1 = 0
+  ptr1.item()[0].value() = 1
+  ptr1[0].value() = 1
+  ptr1 = new TST_Item1[1]
+  @enter - TST_Item1::TST_Item1()
+   this->value() = 2
+  @exit - TST_Item1::TST_Item1()
+  @enter - TST_Item1::~TST_Item1()
+   this->value() = 1
+  @exit - TST_Item1::~TST_Item1()
+  ptr1.numRefs() = 1
+  !ptr1 = 0
+  ptr1.item()[0].value() = 2
+  ptr1[0].value() = 2
+  @enter - TST_Item1::~TST_Item1()
+   this->value() = 2
+  @exit - TST_Item1::~TST_Item1()
+ @exit - void test4()
+ @enter - void test5()
+  ptr1 = new TST_Item1[1]
+  @enter - TST_Item1::TST_Item1()
+   this->value() = 3
+  @exit - TST_Item1::TST_Item1()
+  ptr1.numRefs() = 1
+  !ptr1 = 0
+  ptr1.item()[0].value() = 3
+  ptr1[0].value() = 3
+  ptr1 = ptr1
+  ptr1.numRefs() = 1
+  !ptr1 = 0
+  ptr1.item()[0].value() = 3
+  ptr1[0].value() = 3
+  ptr2 = ptr1
+  ptr1.numRefs() = 2
+  !ptr1 = 0
+  ptr1.item()[0].value() = 3
+  ptr1[0].value() = 3
+  ptr2.numRefs() = 2
+  !ptr2 = 0
+  ptr2.item()[0].value() = 3
+  ptr2[0].value() = 3
+  ptr1 = 0
+  ptr1.numRefs() = 0
+  ptr1.item() = 0
+  ptr1 = 0
+  ptr2.numRefs() = 1
+  !ptr2 = 0
+  ptr2.item()[0].value() = 3
+  ptr2[0].value() = 3
+  ptr2 = ptr1
+  @enter - TST_Item1::~TST_Item1()
+   this->value() = 3
+  @exit - TST_Item1::~TST_Item1()
+  ptr1.numRefs() = 0
+  ptr1.item() = 0
+  ptr1 = 0
+  ptr2.numRefs() = 0
+  ptr2.item() = 0
+  ptr2 = 0
+ @exit - void test5()
+ @enter - void test6()
+  ptr1 = new TST_Item1[1]
+  @enter - TST_Item1::TST_Item1()
+   this->value() = 4
+  @exit - TST_Item1::TST_Item1()
+  ptr1.numRefs() = 1
+  !ptr1 = 0
+  ptr1.item()[0].value() = 4
+  ptr1[0].value() = 4
+  ptr2 = new TST_Item1[1]
+  @enter - TST_Item1::TST_Item1()
+   this->value() = 5
+  @exit - TST_Item1::TST_Item1()
+  ptr2.numRefs() = 1
+  !ptr2 = 0
+  ptr2.item()[0].value() = 5
+  ptr2[0].value() = 5
+  ptr1 = ptr2
+  @enter - TST_Item1::~TST_Item1()
+   this->value() = 4
+  @exit - TST_Item1::~TST_Item1()
+  ptr1.numRefs() = 2
+  !ptr1 = 0
+  ptr1.item()[0].value() = 5
+  ptr1[0].value() = 5
+  ptr2.numRefs() = 2
+  !ptr2 = 0
+  ptr2.item()[0].value() = 5
+  ptr2[0].value() = 5
+  @enter - TST_Item1::~TST_Item1()
+   this->value() = 5
+  @exit - TST_Item1::~TST_Item1()
+ @exit - void test6()
+@exit - void test1()

@@ -1,0 +1,196 @@
+# @configure_input@
+
+# Although the makefile itself doesn't have to require
+# use of GNU make, it does so, so that it can be ensured
+# that there is a version of GNU make to use once the
+# software has been installed. A bit of a check is also
+# made to see if the version of GNU make is new enough.
+# At least GNU make version 3.78 or later is required.
+# If an earlier version is used, recursive makes into
+# subdirectories will not work.
+
+PACKAGE_NAME = @PACKAGE_NAME@
+PACKAGE_STRING = @PACKAGE_STRING@
+PACKAGE_VERSION = @PACKAGE_VERSION@
+PACKAGE_MAJOR_VERSION = @PACKAGE_MAJOR_VERSION@
+PACKAGE_MINOR_VERSION = @PACKAGE_MINOR_VERSION@
+PACKAGE_PATCH_VERSION = @PACKAGE_PATCH_VERSION@
+
+PLATFORM_HOST = @PLATFORM_HOST@
+
+MAKEIT_PLATFORM_VERSION := \
+ $(shell echo $(PLATFORM_HOST) | sed -e 's/^.*[a-zA-Z]\([.0-9]*\)$$/\1/')
+
+MAKEIT_PLATFORM := \
+ $(shell echo $(PLATFORM_HOST) | sed -e 's/^\(.*[a-zA-Z]\)[.0-9]*$$/\1/')
+
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+
+bindir=@bindir@
+libdir=@libdir@
+
+pkglibdir = $(libdir)/makeit-@PACKAGE_VERSION@
+
+top_srcdir = @top_srcdir@
+
+INSTALL = @INSTALL@
+
+INSTALL_DATA = $(INSTALL) -m 644
+INSTALL_PROGRAM = $(INSTALL) -m 0755
+INSTALL_SCRIPT = $(INSTALL) -m 0755
+
+mkinstalldirs = $(SHELL) $(top_srcdir)/scripts/mkinstalldirs
+
+all : check-version scripts/makeit.sh
+
+# We check to see if the version of GNU make we are using
+# supports "$(if ...)" inbuilt function. If it doesn't,
+# then certain stuff will not work. The following should
+# work because the absence of "$(if ...)" will result in
+# the variable actually being set to an empty string.
+
+okay := $(if $(MAKE_VERSION),YES)
+
+check-version :
+ifneq "$(okay)" "YES"
+	@echo "GNU make version 3.78 or later required."
+	exit 1
+endif
+
+WHICH_MAKE = $(strip $(shell which $(MAKE_COMMAND) 2>/dev/null || echo ""))
+
+MAKEIT_PLATFORM_DEFAULTS_FILE = \
+ $(MAKEIT_PLATFORM)-defaults.mk
+
+-include config/$(MAKEIT_PLATFORM_DEFAULTS_FILE)
+
+override MAKEIT_CONFIGURATION := $(strip $(MAKEIT_CONFIGURATION))
+
+ifeq "$(MAKEIT_CONFIGURATION)" ""
+
+override MAKEIT_CONFIGURATION := $(firstword \
+ $(patsubst config/$(MAKEIT_PLATFORM)-compiler-%.mk,%, \
+ $(wildcard config/$(MAKEIT_PLATFORM)-compiler-*.mk)))
+
+endif
+
+ifneq "$(MAKEIT_CONFIGURATION)" ""
+
+MAKEIT_COMPILER_SETTINGS_FILE = \
+ $(MAKEIT_PLATFORM)-compiler-$(MAKEIT_CONFIGURATION).mk
+
+include config/$(MAKEIT_COMPILER_SETTINGS_FILE)
+
+endif
+
+ifeq "$(origin CC)" "default"
+CC = gcc
+endif
+
+ifeq "$(origin CXX)" "default"
+CXX = g++ 
+endif
+
+scripts/makeit.sh : scripts/makeit.sh.in Makefile
+	cat $< | sed -e "s%@MAKE_COMMAND@%$(WHICH_MAKE)%" \
+	 -e "s%@VERSION@%$(PACKAGE_VERSION)%" > $@
+
+install : check-version
+
+install : install-config install-makeit  \
+ install-modules install-targets install-scripts
+
+install-config :
+	$(mkinstalldirs) $(pkglibdir)/config
+	$(foreach file,$(wildcard config/$(MAKEIT_PLATFORM)-*.mk), \
+	 $(INSTALL_DATA) $(file) $(pkglibdir)/$(file);)
+
+install-makeit :
+	$(mkinstalldirs) $(pkglibdir)/makeit
+	$(foreach file,$(wildcard makeit/*.mk), \
+	 $(INSTALL_DATA) $(file) $(pkglibdir)/$(file);)
+
+install-modules :
+	$(mkinstalldirs) $(pkglibdir)/modules
+	$(foreach file,$(wildcard modules/*.mk modules/*.d), \
+	 $(INSTALL_DATA) $(file) $(pkglibdir)/$(file);)
+
+install-targets :
+	$(mkinstalldirs) $(pkglibdir)/targets
+	$(foreach file,$(wildcard targets/*.mk targets/*.sed), \
+	 $(INSTALL_DATA) $(file) $(pkglibdir)/$(file);)
+
+install-scripts : scripts/makeit.sh
+	$(mkinstalldirs) $(bindir)
+	$(INSTALL_SCRIPT) scripts/makeit.sh $(bindir)/makeit
+	$(mkinstalldirs) $(pkglibdir)/scripts
+	$(foreach file,$(wildcard scripts/config.* \
+	 scripts/install-sh scripts/mkinstalldirs), \
+	 $(INSTALL_DATA) $(file) $(pkglibdir)/$(file);)
+
+mostlyclean :
+
+clean : mostlyclean
+	-rm -f scripts/makeit.sh
+	-rm -rf autom4te.cache
+
+distclean : clean
+	-rm -f Makefile config.log config.status
+
+realclean : distclean
+	-rm -f configure
+
+COMPILER_CONFIGURATIONS = \
+ $(patsubst config/$(MAKEIT_PLATFORM)-compiler-%.mk,%, \
+  $(wildcard config/$(MAKEIT_PLATFORM)-compiler-*.mk))
+
+host-platform :
+#ifneq "$(MAKEIT_PLATFORM_VERSION)" ""
+#	@echo "$(MAKEIT_PLATFORM) ($(PLATFORM_HOST))"
+#else
+	@echo "$(MAKEIT_PLATFORM)"
+#endif
+
+configuration-details :
+	@echo
+	@echo "MAKEIT_PLATFORM = $(MAKEIT_PLATFORM)"
+	@echo
+ifneq "$(COMPILER_CONFIGURATIONS)" ""
+	@echo "### Default: $(MAKEIT_CONFIGURATION) ###"
+	@echo
+	@true; $(foreach n,$(COMPILER_CONFIGURATIONS), \
+	 $(MAKE) compiler-configuration MAKEIT_CONFIGURATION=$(n);)
+else
+	@echo "### Builtin Configuration  ###"
+	@$(MAKE) compiler-configuration MAKEIT_CONFIGURATION=
+endif
+
+COMPILER_CC := $(wildcard $(CC))
+
+ifeq "$(COMPILER_CC)" ""
+COMPILER_CC := $(wildcard $(firstword $(shell which $(CC))))
+endif
+
+COMPILER_CXX := $(wildcard $(CXX))
+
+ifeq "$(COMPILER_CXX)" ""
+COMPILER_CXX := $(wildcard $(firstword $(shell which $(CXX))))
+endif
+
+compiler-configuration :
+ifneq "$(MAKEIT_CONFIGURATION)" ""
+	@echo "### Configuration: $(MAKEIT_CONFIGURATION) ###"
+endif
+ifeq "$(COMPILER_CC)" ""
+	@echo
+	@echo "# Warning: C compiler cannot be found #"
+endif
+ifeq "$(COMPILER_CXX)" ""
+	@echo
+	@echo "# Warning: C++ compiler cannot be found #"
+endif
+	@echo
+	@echo "CC = $(CC)"
+	@echo "CXX = $(CXX)"
+	@echo

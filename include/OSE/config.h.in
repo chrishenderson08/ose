@@ -1,0 +1,81 @@
+#ifndef OTC_ENVIRON_CONFIG_H
+#define OTC_ENVIRON_CONFIG_H
+
+/* ------------------------------------------------------------------------- */
+
+/* Force this header into dependencies. */
+extern int OSE_DEPENDENCY_MARKER;
+
+/* ------------------------------------------------------------------------- */
+
+/* Directory access. */
+
+#undef HAVE_DIRENT_H
+#undef HAVE_SYS_NDIR_H
+#undef HAVE_SYS_DIR_H
+#undef HAVE_NDIR_H
+
+/* C header files. */
+
+#undef HAVE_MEMORY_H
+#undef HAVE_STROPTS_H
+#undef HAVE_UNISTD_H
+#undef HAVE_SYS_RESOURCE_H
+#undef HAVE_SYS_ELF_H
+#undef HAVE_SYS_SELECT_H
+#undef HAVE_SYS_PARAM_H
+
+/* Functions we do have. */
+
+#undef HAVE_GETCWD
+#undef HAVE_GETDTABLESIZE
+#undef HAVE_GETPID
+#undef HAVE_GETTIMEOFDAY
+#undef HAVE_NL_LANGINFO
+#undef HAVE_POLL
+#undef HAVE_SELECT
+#undef HAVE_SIGPROCMASK
+#undef HAVE_SIGACTION
+#undef HAVE_STRCOLL
+#undef HAVE_STRTOLL
+#undef HAVE_STRTOLD
+#undef HAVE_SYSCONF
+#undef HAVE_UNAME
+
+/* Functions we do not have. */
+
+#undef NEED_PTHREAD_RWLOCK_INIT
+
+/* Options that sysconf accepts. */
+
+#undef HAVE_SYSCONF_SC_OPEN_MAX
+
+/* Types we do not have. */
+
+#undef NEED_UID_T
+#undef NEED_PID_T
+#undef NEED_OFF_T
+#undef NEED_DEV_T
+#undef NEED_INO_T
+#undef NEED_U_CHAR
+#undef NEED_U_SHORT
+#undef NEED_U_INT
+#undef NEED_U_LONG
+
+#undef NEED_SOCKLEN_T
+
+/* Parts of the stat structure we have. */
+
+#undef HAVE_ST_BLKSIZE
+#undef HAVE_ST_BLOCKS
+#undef HAVE_ST_RDEV
+
+/* Size of standard types. */
+
+#undef SIZEOF_DOUBLE
+#undef SIZEOF_LONG_LONG
+#undef SIZEOF_LONG_DOUBLE
+
+/* ------------------------------------------------------------------------- */
+
+#endif /* OTC_ENVIRON_CONFIG_H */

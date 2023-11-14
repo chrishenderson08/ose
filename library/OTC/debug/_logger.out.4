@@ -1,0 +1,32 @@
+@enter - void test4()
+ @enter - void TST_Logger::log()
+  channel = CHANNEL
+  level = INFO
+  message = CHANNEL
+ @exit - void TST_Logger::log()
+ @enter - void TST_Logger::log()
+  channel = @ CHANNEL
+  level = INFO
+  message = @-CHANNEL
+ @exit - void TST_Logger::log()
+ @enter - void TST_Logger::log()
+  channel = 1 CHANNEL
+  level = INFO
+  message = 1 CHANNEL
+ @exit - void TST_Logger::log()
+ @enter - void TST_Logger::log()
+  channel = # CHANNEL
+  level = INFO
+  message = # CHANNEL
+ @exit - void TST_Logger::log()
+ @enter - void TST_Logger::log()
+  channel =   CHANNEL
+  level = INFO
+  message =   CHANNEL
+ @exit - void TST_Logger::log()
+ @enter - void TST_Logger::log()
+  channel = _ CHANNEL
+  level = INFO
+  message = _ CHANNEL
+ @exit - void TST_Logger::log()
+@exit - void test4()

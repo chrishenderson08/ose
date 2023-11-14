@@ -1,0 +1,338 @@
+Makeit Installation Guide
+=========================
+
+This file contains a quick guide to what needs to be done to configure and
+install makeit.
+
+If you have any questions, you should direct them to the "Help" web forum
+on the OSE web site at [http://ose.sourceforge.net]. Make it clear in your
+posts which version of this package you are using. You can find out exactly
+which version of this package you are using by looking in the "PACKAGE"
+file located in the same directory that this file resides.
+
+Package Prerequsites
+--------------------
+
+You will need to have a moderately recent version of GNU make to both
+install and use makeit. Version 3.79 or later of GNU make is known to work,
+but version 3.78 should also work. Anything prior to version 3.78 lacks
+support for certain features of GNU make which are used by makeit.
+
+Where instructions are provided and they require you to run GNU make, it
+will give the command to run as "make". If GNU make is called something
+different on your system, such as "gmake" or "gnumake", you will need to
+substitute that in place of "make" when executing the command.
+
+If you are on a Win32 system, you must have the Cygwin package installed,
+including the developer tools, and be performing the installation of this
+package from within a Cygwin terminal window. The Cygwin package can be
+obtained from [http://www.cygwin.com].
+
+Makefile Generation
+-------------------
+
+If you have already configured and installed this package once before in
+this directory and are now preparing to install it again but for a
+different host platform, or into a different location, or if you have
+applied any patches, ensure that you first run the command:
+
+  make distclean
+
+The first part of configuring the package is carried out by running a
+configuration script created by the GNU autoconf system. This is done by
+running the command:
+
+  sh ./configure
+
+The default makefile will install files into "/usr/local/bin" and
+"/usr/local/lib". You can override where files are installed by specifying
+the "--prefix" option to the "configure" script. For example, to install
+the package under the directory "/usr/local/ose" instead of "/usr/local",
+run the command:
+
+  sh ./configure --prefix /usr/local/ose
+
+Builtin Configuration
+---------------------
+
+If you only wish to experiment with makeit to see what it is capable of, no
+further configuration is required. You will however need to have the GNU C
+and C++ compilers available, they must be installed as "gcc" and "g++", and
+they must be located somewhere within your application search path. When
+using the builtin configuration, certain features will however be disabled.
+This includes support for distinct compilation variants and the creation of
+shared libraries.
+
+Before building and installing makeit, you can check whether the builtin
+configuration will work for you by running the command:
+
+  make -C testing
+
+This will attempt to use the yet to be installed copy of makeit to compile
+source code contained in the subdirectory called "testing".
+
+When done, you can remove the results of any build by running the command:
+
+  make -C testing clean
+
+Rather than install makeit, you could even run any experiments you wish
+within that actual directory, modifying the makefile and importing your own
+source code files into that directory as appropriate. If you run "make"
+from within the "testing" subdirectory, you can leave off the "-C testing"
+option to "make".
+
+Having thus confirmed that the builtin configuration works, you can finish
+building makeit and then install it. This is done by running the command:
+
+  make
+
+Followed up by running the command:
+
+  make install
+
+You must have the required permissions to install software into the target
+location. If you don't, the installation phase would need to be done as
+"root" or as some other privileged user.
+
+Compiler Configuration
+----------------------
+
+If you want to make use of any of the features disabled when using the
+builtin configuration, use a compiler other than the GNU C and C++
+compilers, allow selection from multiple compiler configurations on the one
+host platform, or make use of a cross compiler, you will need to fully
+configure makeit before installing it.
+
+The package comes with a limited set of sample configurations for different
+host platforms and compilers. If a sample configuration does not exist
+corresponding to your platform and compiler, you will need to manually
+create one. The sample configurations can be found in the "samples"
+subdirectory, but before you get started you need to know what the name is
+that makeit uses to identify the host platform you are running on. To
+determine this, run the command:
+
+  make host-platform
+
+As an example, for a host platform which is running Solaris on the Sparc
+architecture, this would output the value:
+
+  sparc-sun-solaris
+
+In this case the "samples" directory contains the following sample host
+configuration files:
+
+  sparc-sun-solaris-compiler-gcc2.95.X.mk
+  sparc-sun-solaris-platform-gcc2.95.X.mk
+
+  sparc-sun-solaris-compiler-gcc3.X.mk
+  sparc-sun-solaris-platform-gcc3.X.mk
+
+  sparc-sun-solaris-compiler-sun5.X.mk
+  sparc-sun-solaris-platform-sun5.X.mk
+  sparc-sun-solaris-targets-sun5.X.mk
+
+Imagine now that the compilers you have available and wish to use are the
+Sun C/C++ 5.4 compilers. You first need to identify the set of sample
+configuration files which correspond to these compilers and copy all of
+them to the "config" subdirectory. Most sample configuration files do not
+identify a specific version of a compiler, but a major version. The files
+therefore will need to be renamed in the process to incorporate into the
+name of the file the actual version of the compiler as appropriate.
+
+  cp samples/sparc-sun-solaris/sparc-sun-solaris-compiler-sun5.X.mk \
+   config/sparc-sun-solaris-compiler-sun5.4.mk
+
+  cp samples/sparc-sun-solaris/sparc-sun-solaris-platform-sun5.X.mk \
+   config/sparc-sun-solaris-platform-sun5.4.mk
+
+  cp samples/sparc-sun-solaris/sparc-sun-solaris-targets-sun5.X.mk \
+   config/sparc-sun-solaris-targets-sun5.4.mk
+
+For the Sun C/C++ 5.4 compilers, there are three files to the sample
+configuration. These are a "compiler" settings file, a "platform" settings
+file and a "targets" file. There will always be a "compiler" settings file.
+The other files will only exist when required.
+
+To verify that the compiler configuration files have been set up correctly,
+you should run the command:
+
+  make configuration-details
+
+This will tell you what makeit now interprets as being the default
+configuration. It will also indicate if the C and C++ compilers are
+actually in the location defined by the configuration file. If the
+compilers are where they are expected to be, the output will be in the
+form:
+
+  MAKEIT_PLATFORM = sparc-sun-solaris
+
+  ### Default: sun5.4 ###
+
+  ### Configuration: sun5.4 ###
+
+  CC = /opt/SUNWspro/bin/cc
+  CXX = /opt/SUNWspro/bin/CC
+
+If on the other hand, the compilers are not where they are expected to be,
+the output will be in the form:
+
+  MAKEIT_PLATFORM = sparc-sun-solaris
+
+  ### Default: sun5.4 ###
+
+  ### Configuration: sun5.4 ###
+
+  # Warning: C compiler cannot be found #
+
+  # Warning: C++ compiler cannot be found #
+
+  CC = /opt/SUNWspro/bin/cc
+  CXX = /opt/SUNWspro/bin/CC
+
+If the compilers cannot be found, but they are installed on your system,
+you will need to edit the "compiler" settings file you have copied to the
+"config" subdirectory for that compiler, and define their actual location.
+
+Once the compiler configuration file has been setup correctly, once again
+test that it works prior to installing makeit, by running the command:
+
+  make -C testing
+
+Note that when using a specific compiler configuration, by default the
+"dbg" variant is used. Normally, the creation of shared libraries is
+disabled in the "dbg" variant, so to test whether generation of shared
+libraries is working, you should instead use the "opt" variant.
+
+  make -C testing VARIANT=opt
+
+Remember to cleanup afterwards by rerunning the same command but with
+a target of "clean".
+
+Multiple Compilers
+------------------
+
+If you have access to more than one compiler on a host platform and would
+like to use all of them from makeit, simply create the appropriate files in
+the "config" subdirectory for all the compilers.
+
+  cp samples/sparc-sun-solaris/sparc-sun-solaris-compiler-gcc3.X.mk \
+   config/sparc-sun-solaris-compiler-gcc3.1.mk
+
+  cp samples/sparc-sun-solaris/sparc-sun-solaris-platform-gcc3.X.mk \
+   config/sparc-sun-solaris-platform-gcc3.1.mk
+
+After this is done, once again run the command:
+
+  make configuration-details
+
+When there is more than one compiler configuration installed for a host
+platform, the details of each will be shown, along with which is regarded
+as being the default configuration.
+
+  MAKEIT_PLATFORM = sparc-sun-solaris
+
+  ### Default: gcc3.1 ###
+
+  ### Configuration: gcc3.1 ###
+
+  CC = /usr/local/bin/gcc
+  CXX = /usr/local/bin/g++
+
+  ### Configuration: sun5.4 ###
+
+  CC = /opt/SUNWspro/bin/cc
+  CXX = /opt/SUNWspro/bin/CC
+
+With multiple compiler configurations, the default configuration used will
+be that which comes first in the list when the names of the different
+configurations are sorted. If you wish to override this, you will need to
+create an additional "defaults" configuration file within the "config"
+directory. This file needs to define which compiler configuration is to be
+used as the default configuration for the host platform if one is not
+explicitly defined by the user of makeit. In this example, the name of this
+file would need to be:
+
+  config/sparc-sun-solaris-defaults.mk
+
+For the case where it is required to ensure that the "sun5.4" configuration
+is the default, the contents of this file would need to be:
+
+  ifeq "$(origin MAKEIT_CONFIGURATION)" "undefined"
+  MAKEIT_CONFIGURATION = sun5.4
+  endif
+
+When makeit is being used, the default can be overridden by the user
+definining in their makefile an alternate configuration.
+
+  MAKEIT_CONFIGURATION = gcc3.1
+
+If you want to test that a configuration, which is not the default, is
+setup correctly prior to installing makeit, attempt to build the contents
+of the "testing" directory but specify which configuration to use on the
+command line:
+
+  make -C testing MAKEIT_CONFIGURATION=gcc3.1
+
+New Configurations
+------------------
+
+If there are no sample configurations appropriate for the compiler you wish
+to use, you will need to create one. Information about the contents of the
+various configuration files can be found in the "PORTING" file.
+
+If you need to create a new type of compiler configuration, consider
+contributing it back to the developer for inclusion in future releases. Any
+such contributions can be submitted under "Feature Requests" on the OSE web
+site at [http://ose.sourceforge.net].
+
+Final Installation
+------------------
+
+Once you have created any compiler configurations, you can finish building
+makeit and then install it. This is done by running the command:
+
+  make
+
+Followed up by running the command:
+
+  make install
+
+You must have the required permissions to install software into the target
+location. If you don't, the installation phase would need to be done as
+"root" or as some other privileged user.
+
+Using Makeit
+------------
+
+To use makeit, you need to run the "makeit" command. This will have been
+installed into the "/usr/local/bin" directory, or elsewhere as appropriate.
+Ensure that this "bin" directory is in your standard search path. A script
+is used to wrap up the invocation of GNU make in order to be able to
+transparently pass to GNU make where it needs to search for the files
+installed by this package.
+
+Once makeit has been installed, the most minimal makefile which would be
+required in order to use makeit for C and C++ code development is:
+
+  MODULES = c cxx
+
+  include makeit/setup.mk
+
+  # PROGRAMS +=
+
+  include makeit/modules.mk
+
+The makefile can be called "GNUMakefile", "Makefile" or "makefile". This
+makefile will compile all C and C++ code files in a directory and place
+them in a static library.
+
+If you have any program code files in the directory, ie., they contain a
+"main()" routine, uncomment the setting of the "PROGRAMS" variable and list
+the basename part of the file names in that variable. For example, if your
+program code file is called "hello.cc", list "hello" in the "PROGRAMS"
+file.
+
+Makeit supports standard build targets such as "all" and "clean", plus more
+specific targets such as "lib" and "programs". For further information you
+should consult the documentation. Such documentation that exists can be
+found at [http://ose.sourceforge.net].
